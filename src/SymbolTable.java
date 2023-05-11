@@ -11,4 +11,9 @@ public class SymbolTable {
 		symbolTable = new ArrayList<SymbolTableEntry>();
 		symbolTable.add(st);
 	}
+
+	public void SymbolTableAdd(SymbolTableEntry st)
+	{
+		symbolTable.add(st);
+	}
 }
