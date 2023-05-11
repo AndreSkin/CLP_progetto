@@ -40,7 +40,8 @@ public class Main {
             int errLine = lexerErrors.get(i).getLine();
             String errStr = lexerErrors.get(i).getText();
             int errPos = lexerErrors.get(i).getCharPositionInLine() +1;
-            String toWrite = "Errore "+i+1+": Linea "+errLine+", carattere numero "+errPos+" -> "+errStr+"\n";
+            int k=i+1;
+            String toWrite = "Errore "+k+": Linea "+errLine+", carattere numero "+errPos+" -> "+errStr+"\n";
             Files.write(Paths.get("out/errors.txt"), toWrite.getBytes(), StandardOpenOption.APPEND);
         }
         
