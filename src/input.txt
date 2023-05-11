@@ -1,2 +1,4 @@
-void f(){)bdsajhejhScdn n,vSD nv ,enm-les,.<efWMVAZR-S.
-sMNlcf.Ewa>A.EZ,DSAZDS,MVAZS,,vSD nv ,enm-les,.<efsccvvdddvMVAZR-S.F, R.SDF<ZDB.V,_F,ZZXDSRADGREBRALAHs.ss,sxs
+void h(int n){
+  	  int x ; int y ; bool b = false;
+          if (n==0){ x = n+1 ;} else { h(n-1) ; x = n ; y = x ;}
+     }
