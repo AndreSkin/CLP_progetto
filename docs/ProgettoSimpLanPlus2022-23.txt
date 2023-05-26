@@ -80,7 +80,7 @@ codici da verificare sono
 
 int x ;
 void f(int n){ 
-	if (n == 0) { }
+	if (n == 0) { n = 0 ; }       // n e` gia` uguale a 0; equivale a fare skip
 	else { x = x * n ; f(n-1) ; }	
 }
 x = 1 ;
@@ -101,7 +101,7 @@ f(u)
 int u ;
 void f(int m, int n){
 	if (m>n) { u = m+n ;}
-	else { int x = 1 ; f(m+1,n+1) ; }
+	else { int x ; x = 1 ; f(m+1,n+1) ; }
 }
 f(5,4) ; u
 // cosa succede se la invoco con f(4,5)?
