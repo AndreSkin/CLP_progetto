@@ -23,7 +23,7 @@ public class Main {
         while (token.getType() != SimpLanPlusLexer.EOF)
         {
             allTokens.add(token);
-            System.out.println(token);
+            //System.out.println(token);
             if (token.getType() == SimpLanPlusLexer.ERR)
             {
                 lexerErrors.add(token);
@@ -61,55 +61,54 @@ public class Main {
         final int intType = 7;
         final int boolType = 8;
         final int voidType = 9;
+        final int varType = 28;
+        final int openTonda = 2;
+        final int closeTonda = 4;
+        final int comma = 1;
+        final int assign = 10;
+        final int equals = 24;
+
+
 
         int nestingLevel = 0;
         for (int k=0; k<allTokens.size();k=k+1)
         {
             Token T = allTokens.get(k);
-            switch (T.getType())
-            {
-                case openGraffa:
-                    nestingLevel = nestingLevel +1;
-                    break;
-                case closeGraffa:
-                    if (nestingLevel > 0)
-                    {
+            System.out.println(T.getText() +" "+T.getType());
+            switch (T.getType()) {
+                case openGraffa -> nestingLevel = nestingLevel + 1;
+                case closeGraffa -> {
+                    if (nestingLevel > 0) {
                         nestingLevel = nestingLevel - 1;
                     }
-                    break;
-                case intType:
-                case boolType:
-                case voidType:
-                    if (k + 1 < allTokens.size())
-                    {
+                }
+                case intType, boolType, voidType -> {
+                    if (k + 1 < allTokens.size()) {
                         Token nextToken = allTokens.get(k + 1);
                         String tokenName = nextToken.getText();
-                        if (k + 2 < allTokens.size())
-                        {
+                        if (k + 2 < allTokens.size()) {
                             Token nextNextToken = allTokens.get(k + 2);
-                            if (nextNextToken.getText().equals(";"))
-                            {
+                            if (nextNextToken.getType() == comma) {
                                 // declaration
-                            }
-                            else if (nextNextToken.getText().equals("="))
-                            {
+                            } else if (nextNextToken.getType() == assign) {
                                 // declaration + initialization
-                                if (k + 3 < allTokens.size())
-                                {
+                                if (k + 3 < allTokens.size()) {
                                     Token initValToken = allTokens.get(k + 3);
                                     String initVal = initValToken.getText();
                                     // save initVal
                                 }
-                            }
-                            else if (nextNextToken.getText().equals("("))
-                            {
+                            } else if (nextNextToken.getType() == equals) {
                                 // function declaration
                             }
                         }
                     }
-                    break;
-                default:
-                    //
+                }
+                default -> {
+                    //System.out.println(T.getType())
+                    //System.out.println("Errori sintattici rilevati, consultare il file /out/errors.txt");
+                    //throw new Error2();
+                }
+                //
             }
         }
 

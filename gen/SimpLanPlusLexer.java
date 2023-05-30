@@ -1,4 +1,4 @@
-// Generated from C:/Users/schin/Desktop/UNI/CLP/CLP_progetto/src\SimpLanPlus.g4 by ANTLR 4.12.0
+// Generated from /home/alessio/Projects/CLP_progetto/src/SimpLanPlus.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
