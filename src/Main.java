@@ -53,9 +53,12 @@ public class Main {
                 System.out.println("Errori sintattici rilevati, consultare il file /out/errors.txt");
                 throw new Error2();
         }
-        
-        
+
         //Exercise 2
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        SimpLanPlusParser parser = new SimpLanPlusParser(tokens);
+        //Bisogna produrre l'AST
+
         final int openGraffa = 5;
         final int closeGraffa = 6;
         final int intType = 7;
@@ -74,7 +77,7 @@ public class Main {
         for (int k=0; k<allTokens.size();k=k+1)
         {
             Token T = allTokens.get(k);
-            System.out.println(T.getText() +" "+T.getType());
+           // System.out.println(T.getText() +" "+T.getType());
             switch (T.getType()) {
                 case openGraffa -> nestingLevel = nestingLevel + 1;
                 case closeGraffa -> {
@@ -113,4 +116,12 @@ public class Main {
         }
 
     }
+
+
+    //Exercise 3
+    Environment e = new Environment();
+
+
 }
+
+

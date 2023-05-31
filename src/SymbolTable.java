@@ -16,7 +16,7 @@ public class SymbolTable {
 		symbolTable.push(current);
 	}
 
-	public void SymbolTableAdd(String s, SymbolTableEntry st)
+	public void Add(String s, SymbolTableEntry st)
 	{
 		if(symbolTable.isEmpty()){
 			Hashtable<String, SymbolTableEntry> current = new Hashtable<String, SymbolTableEntry>();
