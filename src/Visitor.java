@@ -1,4 +1,5 @@
-import org.antlr.v4.runtime.tree.ParseTree;
+import Nodes.DeclarationNode;
+import Nodes.Node;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     public Node visitDec(SimpLanPlusParser.DecContext ctx) {
         System.out.println(ctx.type());
 
-        Node e = new Node();
+        DeclarationNode e = new DeclarationNode();
         return e;
     }
 }
