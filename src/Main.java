@@ -1,3 +1,4 @@
+import ast.Node;
 import org.antlr.v4.runtime.*;
 
 import java.io.File;
@@ -57,9 +58,11 @@ public class Main {
         //Exercise 2
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         SimpLanPlusParser parser = new SimpLanPlusParser(tokens);
+        Visitor visitor = new Visitor();
         //Bisogna produrre l'AST
+        Node ast = visitor.visit(parser.prog());
 
-        final int openGraffa = 5;
+        /*final int openGraffa = 5;
         final int closeGraffa = 6;
         final int intType = 7;
         final int boolType = 8;
@@ -114,7 +117,7 @@ public class Main {
                 //
             }
         }
-
+    */
     }
 
 
