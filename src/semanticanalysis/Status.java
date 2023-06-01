@@ -1,3 +1,4 @@
+package semanticanalysis;
 
 public enum Status {
 	DECLARED,

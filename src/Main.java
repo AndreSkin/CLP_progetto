@@ -1,5 +1,7 @@
 import ast.Node;
 import org.antlr.v4.runtime.*;
+import semanticanalysis.Environment;
+import semanticanalysis.Error2;
 
 import java.io.File;
 import java.io.IOException;
@@ -112,7 +114,7 @@ public class Main {
                 default -> {
                     //System.out.println(T.getType())
                     //System.out.println("Errori sintattici rilevati, consultare il file /out/errors.txt");
-                    //throw new Error2();
+                    //throw new semanticanalysis.Error2();
                 }
                 //
             }

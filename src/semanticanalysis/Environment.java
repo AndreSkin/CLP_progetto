@@ -1,12 +1,13 @@
+package semanticanalysis;
+
 public class Environment {
     private SymbolTable symbolTable;
-    private int nestingLevel;
-    private int offset;
+    //private int nestingLevel;
+    //private int offset;
 
     public Environment() {
         this.symbolTable = new SymbolTable();
-        this.nestingLevel = -1;
-        this.offset = 0;
+        //this.offset = 0;
     }
 
     public SymbolTable getSymbolTable() {
@@ -18,10 +19,10 @@ public class Environment {
     }
 
     public int getNestingLevel() {
-        return this.nestingLevel;
+        return this.symbolTable.nesting();
     }
 
-    public void setNestingLevel(int nl) {
+    /*public void setNestingLevel(int nl) {
         this.nestingLevel = nl;
     }
 
@@ -31,6 +32,6 @@ public class Environment {
 
     public void setOffset(int of) {
         this.offset = of;
-    }
+    }*/
 
 }

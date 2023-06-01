@@ -1,5 +1,9 @@
 package ast;
 
+import semanticanalysis.Environment;
+import semanticanalysis.SemanticError;
+import semanticanalysis.SymbolTable;
+
 import java.util.ArrayList;
 
     public class ProgramNode implements Node {
@@ -8,7 +12,7 @@ import java.util.ArrayList;
         private ArrayList<Node> statements;
 
         private Node exp;
-        private Environment localenv;
+        private Environment env;
 
         public ProgramNode(ArrayList<Node> declarations, ArrayList<Node> statements, Node exp) {
             this.declarations = declarations;
@@ -53,12 +57,12 @@ import java.util.ArrayList;
 
         @Override
         public TypeNode typeCheck(Environment env) throws TypeCheckException {
-            // Typecheck the declarations
-            if (this.declarations != null) {
+            // Typecheck the declarations --- Non ho assegnamenti quando dichiaro!
+            /*if (this.declarations != null) {
                 for (Node declaration : this.declarations) {
-                    declaration.typeCheck(this.localenv);
+                    declaration.typeCheck(this.env);
                 }
-            }
+            }*/
             // Typecheck the statements
             if (this.statements != null) {
                 for (Node statement : this.statements) {
@@ -66,11 +70,11 @@ import java.util.ArrayList;
                 }
             }
             // Locate unused symbols
-            for(String id: localenv.getSymbolTableManager().getLevel(localenv.getNestingLevel()).keySet()){
+            /*for(String id: localenv.getSymbolTableManager().getLevel(localenv.getNestingLevel()).keySet()){
                 if(!localenv.getSymbolTableManager().getLevel(localenv.getNestingLevel()).get(id).getEffect().isUsed()){
                     System.out.println("[W] Symbol "+id+" is unused in program.");
                 }
-            }
+            }*/
             return new VoidTypeNode();
         }
 
