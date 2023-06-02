@@ -1,14 +1,14 @@
 package semanticanalysis;
 
-import ast.Type;
+import ast.TypeNode;
 
 public class SymbolTableEntry {
 	private String label;
-	private Type type;
+	private TypeNode type;
 	//private int nestingLevel;
 	private Status status;
 	
-	public SymbolTableEntry(String l, Type t, /*int nestingL,*/ Status s) {
+	public SymbolTableEntry(String l, TypeNode t, /*int nestingL,*/ Status s) {
 		this.label = l;
 		this.type = t;
 		//this.nestingLevel = nestingL;
@@ -19,7 +19,7 @@ public class SymbolTableEntry {
 		return this.label;
 	}
 
-	public Type getType() {
+	public TypeNode getType() {
 		return this.type;
 	}
 

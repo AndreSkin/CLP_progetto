@@ -1,6 +1,6 @@
 package semanticanalysis;
 
-import ast.Type;
+import ast.TypeNode;
 
 import java.util.Hashtable;
 import java.util.Stack;
@@ -61,7 +61,7 @@ public class SymbolTable {
 		}
 	}
 
-	public void insert(String id, Type type) {
+	public void insert(String id, TypeNode type) {
 		Hashtable<String, SymbolTableEntry> x = symbolTable.peek();
 		SymbolTableEntry st = new SymbolTableEntry(id, type, Status.DECLARED);
 		x.put(id, st);

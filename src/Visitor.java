@@ -36,7 +36,7 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
 
     public Node visitIdInit(SimpLanPlusParser.DecContext ctx) {
         //visit the type
-        Node typeNode = visit(ctx.type());
+        TypeNode typeNode = (TypeNode) visit(ctx.type());
 
         //build the varNode
         return new DecNode(ctx.ID().getText(), typeNode);
@@ -79,17 +79,12 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     }
 
     public Node visitType(SimpLanPlusParser.TypeContext ctx) {
-        if(ctx.getText().equals("int"))
-            return new IntType();
-        else if(ctx.getText().equals("bool"))
-            return new BoolType();
-        else
-            return new VoidType();
+        return new TypeNode(ctx.getText());
     }
 
-    public Node visitExp(ExpContext ctx) {
-        if(ctx.right == null){ //it is a simple expression
-            return visit( ctx.left );
+    public Node visitExp(SimpLanPlusParser.ExpContext ctx) {
+        if(ctx.exp(1) == null){ //it is a simple expression
+            return visit( ctx.exp(0) );
         } else { //it is a binary expression: visit left and right
             if (ctx.plus != null)
                 return new PlusNode(visit(ctx.left), visit(ctx.right));

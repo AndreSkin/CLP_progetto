@@ -25,21 +25,6 @@ import java.util.ArrayList;
         }
 
         @Override
-        public ArrayList<SemanticError> checkSemantics(SymbolTable ST, int _nesting) {
-            return null;
-        }
-
-        @Override
-        public Type typeCheck() {
-            return null;
-        }
-
-        @Override
-        public String codeGeneration() {
-            return null;
-        }
-
-        @Override
         public String toPrint(String indent) {
             String res = "";
             if (this.declarations != null) {
@@ -56,26 +41,31 @@ import java.util.ArrayList;
         }
 
         @Override
-        public TypeNode typeCheck(Environment env) throws TypeCheckException {
+        public String codeGeneration(Environment localenv) {
+            return null;
+        }
+
+        @Override
+        public ArrayList<SemanticError> checkSemantics(Environment e) {
+            return null;
+        }
+
+        @Override
+        public TypeNode typeCheck(Environment e) {
             // Typecheck the declarations --- Non ho assegnamenti quando dichiaro!
-            /*if (this.declarations != null) {
+            if (this.declarations != null) {
                 for (Node declaration : this.declarations) {
-                    declaration.typeCheck(this.env);
+                    declaration.typeCheck(e);
                 }
-            }*/
+            }
             // Typecheck the statements
             if (this.statements != null) {
                 for (Node statement : this.statements) {
-                    statement.typeCheck(this.localenv);
+                    statement.typeCheck(e);
                 }
             }
-            // Locate unused symbols
-            /*for(String id: localenv.getSymbolTableManager().getLevel(localenv.getNestingLevel()).keySet()){
-                if(!localenv.getSymbolTableManager().getLevel(localenv.getNestingLevel()).get(id).getEffect().isUsed()){
-                    System.out.println("[W] Symbol "+id+" is unused in program.");
-                }
-            }*/
-            return new VoidTypeNode();
+            //da modificare
+            return this.exp!=null? exp.typeCheck(e):null;
         }
 
 }
