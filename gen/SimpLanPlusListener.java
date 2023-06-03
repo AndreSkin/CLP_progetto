@@ -7,25 +7,53 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface SimpLanPlusListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link SimpLanPlusParser#prog}.
+	 * Enter a parse tree produced by the {@code singleExp}
+	 * labeled alternative in {@link SimpLanPlusParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void enterProg(SimpLanPlusParser.ProgContext ctx);
+	void enterSingleExp(SimpLanPlusParser.SingleExpContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpLanPlusParser#prog}.
+	 * Exit a parse tree produced by the {@code singleExp}
+	 * labeled alternative in {@link SimpLanPlusParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void exitProg(SimpLanPlusParser.ProgContext ctx);
+	void exitSingleExp(SimpLanPlusParser.SingleExpContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpLanPlusParser#dec}.
+	 * Enter a parse tree produced by the {@code multipleExp}
+	 * labeled alternative in {@link SimpLanPlusParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void enterDec(SimpLanPlusParser.DecContext ctx);
+	void enterMultipleExp(SimpLanPlusParser.MultipleExpContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpLanPlusParser#dec}.
+	 * Exit a parse tree produced by the {@code multipleExp}
+	 * labeled alternative in {@link SimpLanPlusParser#prog}.
 	 * @param ctx the parse tree
 	 */
-	void exitDec(SimpLanPlusParser.DecContext ctx);
+	void exitMultipleExp(SimpLanPlusParser.MultipleExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code varDec}
+	 * labeled alternative in {@link SimpLanPlusParser#dec}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarDec(SimpLanPlusParser.VarDecContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code varDec}
+	 * labeled alternative in {@link SimpLanPlusParser#dec}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarDec(SimpLanPlusParser.VarDecContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funDec}
+	 * labeled alternative in {@link SimpLanPlusParser#dec}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunDec(SimpLanPlusParser.FunDecContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funDec}
+	 * labeled alternative in {@link SimpLanPlusParser#dec}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunDec(SimpLanPlusParser.FunDecContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpLanPlusParser#param}.
 	 * @param ctx the parse tree
@@ -57,23 +85,183 @@ public interface SimpLanPlusListener extends ParseTreeListener {
 	 */
 	void exitType(SimpLanPlusParser.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpLanPlusParser#stm}.
+	 * Enter a parse tree produced by the {@code asgStm}
+	 * labeled alternative in {@link SimpLanPlusParser#stm}.
 	 * @param ctx the parse tree
 	 */
-	void enterStm(SimpLanPlusParser.StmContext ctx);
+	void enterAsgStm(SimpLanPlusParser.AsgStmContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpLanPlusParser#stm}.
+	 * Exit a parse tree produced by the {@code asgStm}
+	 * labeled alternative in {@link SimpLanPlusParser#stm}.
 	 * @param ctx the parse tree
 	 */
-	void exitStm(SimpLanPlusParser.StmContext ctx);
+	void exitAsgStm(SimpLanPlusParser.AsgStmContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SimpLanPlusParser#exp}.
+	 * Enter a parse tree produced by the {@code funCallStm}
+	 * labeled alternative in {@link SimpLanPlusParser#stm}.
 	 * @param ctx the parse tree
 	 */
-	void enterExp(SimpLanPlusParser.ExpContext ctx);
+	void enterFunCallStm(SimpLanPlusParser.FunCallStmContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SimpLanPlusParser#exp}.
+	 * Exit a parse tree produced by the {@code funCallStm}
+	 * labeled alternative in {@link SimpLanPlusParser#stm}.
 	 * @param ctx the parse tree
 	 */
-	void exitExp(SimpLanPlusParser.ExpContext ctx);
+	void exitFunCallStm(SimpLanPlusParser.FunCallStmContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ifStm}
+	 * labeled alternative in {@link SimpLanPlusParser#stm}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStm(SimpLanPlusParser.IfStmContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ifStm}
+	 * labeled alternative in {@link SimpLanPlusParser#stm}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStm(SimpLanPlusParser.IfStmContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code plusMinusExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlusMinusExp(SimpLanPlusParser.PlusMinusExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code plusMinusExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlusMinusExp(SimpLanPlusParser.PlusMinusExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code trueExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrueExp(SimpLanPlusParser.TrueExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code trueExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrueExp(SimpLanPlusParser.TrueExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code idExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdExp(SimpLanPlusParser.IdExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code idExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdExp(SimpLanPlusParser.IdExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code notIdExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotIdExp(SimpLanPlusParser.NotIdExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code notIdExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotIdExp(SimpLanPlusParser.NotIdExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code mulDivExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterMulDivExp(SimpLanPlusParser.MulDivExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code mulDivExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitMulDivExp(SimpLanPlusParser.MulDivExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funCallExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunCallExp(SimpLanPlusParser.FunCallExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funCallExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunCallExp(SimpLanPlusParser.FunCallExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ifExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfExp(SimpLanPlusParser.IfExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ifExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfExp(SimpLanPlusParser.IfExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code bracketExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterBracketExp(SimpLanPlusParser.BracketExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bracketExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitBracketExp(SimpLanPlusParser.BracketExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code falseExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterFalseExp(SimpLanPlusParser.FalseExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code falseExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitFalseExp(SimpLanPlusParser.FalseExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cfrExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterCfrExp(SimpLanPlusParser.CfrExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cfrExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitCfrExp(SimpLanPlusParser.CfrExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code logicalExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalExp(SimpLanPlusParser.LogicalExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code logicalExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalExp(SimpLanPlusParser.LogicalExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code intExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntExp(SimpLanPlusParser.IntExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code intExp}
+	 * labeled alternative in {@link SimpLanPlusParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntExp(SimpLanPlusParser.IntExpContext ctx);
 }

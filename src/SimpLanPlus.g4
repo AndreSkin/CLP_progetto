@@ -1,11 +1,11 @@
 grammar SimpLanPlus ;
 
-prog   : exp                  				
-       | (dec)+ (stm)* (exp)?       
+prog   : exp                  	#singleExp
+       | (dec)+ (stm)* (exp)?   #multipleExp
        ;
 
-dec    : type ID ';'                                   
-       | type ID '(' ( param ( ',' param)* )? ')' '{' body '}'
+dec    : type ID ';'               #varDec
+       | type ID '(' ( param ( ',' param)* )? ')' '{' body '}' #funDec
        ;
          
 param  : type ID ;
@@ -18,21 +18,23 @@ type   : 'int'
        | 'void'
        ;  
 
-stm    : ID '=' exp ';'
-       | ID '(' (exp (',' exp)* )? ')' ';'
-       | 'if' '(' exp ')' '{' (stm)+ '}' ('else' '{' (stm)+ '}')?
+stm    : ID '=' exp ';' #asgStm
+       | ID '(' (exp (',' exp)* )? ')' ';' #funCallStm
+       | 'if' '(' exp ')' '{' (stm)+ '}' ('else' '{' (stm)+ '}')? #ifStm
 	   ;
            
-exp    :  INTEGER | 'true' | 'false'
-       | ID 
-       | '!' exp
-       | exp ('*' | '/') exp
-       | exp ('+' | '-') exp 
-       | exp ('>' | '<' | '>=' | '<=' | '==') exp 
-       | exp ('&&' | '||') exp 
-       | 'if' '(' exp ')' '{' (stm)* exp '}' 'else' '{' (stm)* exp '}' 
-       | '(' exp ')'
-       | ID '(' (exp (',' exp)* )? ')'
+exp    :  INTEGER #intExp
+       | 'true' #trueExp
+       | 'false' #falseExp
+       | ID #idExp
+       | '!' exp #notIdExp
+       | exp ('*' | '/') exp #mulDivExp
+       | exp ('+' | '-') exp #plusMinusExp
+       | exp ('>' | '<' | '>=' | '<=' | '==') exp #cfrExp
+       | exp ('&&' | '||') exp #logicalExp
+       | 'if' '(' exp ')' '{' (stm)* exp '}' 'else' '{' (stm)* exp '}' #ifExp
+       | '(' exp ')' #bracketExp
+       | ID '(' (exp (',' exp)* )? ')' #funCallExp
        ;
  
 /*------------------------------------------------------------------

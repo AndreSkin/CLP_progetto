@@ -27,5 +27,8 @@ public class SymbolTableEntry {
 		return this.status;
 	}
 
+	public void setInitialized() {
+		this.status = Status.INITIALIZED;
+	}
 
 }
