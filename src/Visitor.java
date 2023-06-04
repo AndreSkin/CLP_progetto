@@ -1,7 +1,7 @@
 import ast.*;
-import ast.DeclarationNode;
 
 import java.util.ArrayList;
+import java.util.SimpleTimeZone;
 
 public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     public Node visitMultipleExp(SimpLanPlusParser.MultipleExpContext ctx) {
@@ -83,99 +83,62 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     public Node visitAsgStm(SimpLanPlusParser.AsgStmContext ctx) {
         return new AsgNode();
     }
-    public Node visitExp(SimpLanPlusParser.ExpContext ctx) {
-        if(ctx.exp(1) == null){ //it is a simple expression
-            return visit( ctx.exp(0) );
-        } else { //it is a binary expression: visit left and right
-            if (ctx.plus != null)
-                return new PlusNode(visit(ctx.left), visit(ctx.right));
-            else return new MinusNode(visit(ctx.left), visit(ctx.right));
-        }
-    }
-    // Integer.parseInt(ctx.INTEGER().getText())
 
-    public Node visitTerm(TermContext ctx) {
-        if(ctx.right == null){ //it is a simple expression
-            return visit( ctx.left );
-        } else {
-            //it is a binary expression: visit left and right
-            if(ctx.mul != null)
-                return new MultNode(visit(ctx.left), visit(ctx.right));
-            else return new DivNode(visit(ctx.left), visit(ctx.right));
-        }
+    //todo
+    public Node visitFunCallStm(SimpLanPlusParser.FunCallStmContext ctx) {
+        return null;
     }
 
-    public Node visitFactor(FactorContext ctx) {
-        if(ctx.right == null){ //it is a simple expression
-            return visit( ctx.left );
-        }else{ //it is a binary expression, you should visit left and right
-            return new EqualNode(visit(ctx.left), visit(ctx.right));
-        }
+    public Node visitIfStm(SimpLanPlusParser.IfStmContext ctx) {
+        return null;
     }
 
-    public Node visitIntVal(SimpLanPlusParser.ExpContext ctx) {
-        // notice that this method is not actually a rule but a named production #intVal
-        //there is no need to perform a check here, the lexer ensures this text is an int
-        return new IntNode(Integer.parseInt(ctx.INTEGER().getText()));
+    public Node visitIntExp(SimpLanPlusParser.IntExpContext ctx) {
+        return null;
     }
 
-    public Node visitBoolVal(BoolValContext ctx) {
-        //there is no need to perform a check here, the lexer ensures this text is a boolean
-        return new BoolNode(Boolean.parseBoolean(ctx.getText()));
+    public Node visitTrueExp(SimpLanPlusParser.TrueExpContext ctx) {
+        return null;
     }
 
-    public Node visitBaseExp(BaseExpContext ctx) {
-
-        //this is actually nothing in the sense that for the ast the parenthesis are not relevant
-        //the thing is that the structure of the ast will ensure the operational order by giving
-        //a larger depth (closer to the leafs) to those expressions with higher importance
-
-        //this is actually the default implementation for this method in the SimpLanBaseVisitor class
-        //therefore it can be safely removed here
-
-        return visit (ctx.exp());
+    public Node visitFalseExp(SimpLanPlusParser.FalseExpContext ctx) {
+        return null;
     }
 
-    public Node visitIfExp(IfExpContext ctx) {
-        //visit the conditional, then the then branch, and then the else branch
-        //notice once again the need of named terminals in the rule, this is because
-        //we need to point to the right expression among the 3 possible ones in the rule
-
-        Node condExp = visit (ctx.cond);
-
-        Node thenExp = visit (ctx.thenBranch);
-
-        Node elseExp = visit (ctx.elseBranch);
-
-        return new IfNode(condExp, thenExp, elseExp);
+    public Node visitIdExp(SimpLanPlusParser.IdExpContext ctx) {
+        return null;
     }
 
-    public Node visitVarExp(VarExpContext ctx) {
-        //this corresponds to a variable access
-        return new IdNode(ctx.ID().getText());
+    public Node visitNotIdExp(SimpLanPlusParser.NotIdExpContext ctx) {
+        return null;
     }
 
-    public Node visitFunExp(FunExpContext ctx) {
-        //this corresponds to a function invocation
-        //declare the result
-        Node res;
-
-        //get the invocation arguments
-        ArrayList<Node> args = new ArrayList<Node>();
-
-        for (ExpContext exp : ctx.exp())
-            args.add(visit(exp));
-
-        // this is ad-hoc for this project...
-        if(ctx.ID().getText().equals("print"))
-            res = new PrintNode(args.get(0));
-
-        else
-            //instantiate the invocation
-            res = new CallNode(ctx.ID().getText(), args);
-
-        return res;
+    public Node visitMulDivExp(SimpLanPlusParser.MulDivExpContext ctx) {
+        return null;
     }
 
+    public Node visitPlusMinusExp(SimpLanPlusParser.PlusMinusExpContext ctx) {
+        return null;
+    }
+
+    public Node visitCfrExp(SimpLanPlusParser.CfrExpContext ctx) {
+        return null;
+    }
+
+    public Node visitLogicalExp(SimpLanPlusParser.LogicalExpContext ctx) {
+        return null;
+    }
+
+    public Node visitIfExp(SimpLanPlusParser.IfExpContext ctx) {
+        return null;
+    }
+
+    public Node visitBracketExp(SimpLanPlusParser.BracketExpContext ctx) {
+        return null;
+    }
+
+    public Node visitFunCallExp(SimpLanPlusParser.FunCallExpContext ctx) {
+        return null;
+    }
 
 }
