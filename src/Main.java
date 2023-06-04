@@ -17,13 +17,14 @@ public class Main {
     	//Exercise 1
     	
         String input = new String(Files.readAllBytes(Paths.get("src/input.txt")));
+        //System.out.println(input);
         CharStream stream = CharStreams.fromString(input);
         SimpLanPlusLexer lexer = new SimpLanPlusLexer(stream);
         List<Token> allTokens = new ArrayList<>();
         List<Token> lexerErrors = new ArrayList<>();
-        Token token = lexer.nextToken();
+      //  Token token = lexer.nextToken();
 
-        while (token.getType() != SimpLanPlusLexer.EOF)
+       /* while (token.getType() != SimpLanPlusLexer.EOF)
         {
             allTokens.add(token);
             //System.out.println(token);
@@ -54,77 +55,27 @@ public class Main {
                 Files.write(Paths.get("out/errors.txt"), toWrite.getBytes(), StandardOpenOption.APPEND);
             }
                 System.out.println("Errori sintattici rilevati, consultare il file /out/errors.txt");
-                throw new Error2();
-        }
+                throw new Error();
+        }*/
+
+        //Se uso il lexer.nextToken allora mi trovo eof, bisogna capire come resettarlo o se sopra si puo evitare di usare
 
         //Exercise 2
+        //System.out.println(lexer.nextToken());
         CommonTokenStream tokens = new CommonTokenStream(lexer);
+
         SimpLanPlusParser parser = new SimpLanPlusParser(tokens);
         Visitor visitor = new Visitor();
         //Bisogna produrre l'AST
+        //System.out.println(parser.prog());
         Node ast = visitor.visit(parser.prog());
 
-        /*final int openGraffa = 5;
-        final int closeGraffa = 6;
-        final int intType = 7;
-        final int boolType = 8;
-        final int voidType = 9;
-        final int varType = 28;
-        final int openTonda = 2;
-        final int closeTonda = 4;
-        final int comma = 1;
-        final int assign = 10;
-        final int equals = 24;
 
-
-
-        int nestingLevel = 0;
-        for (int k=0; k<allTokens.size();k=k+1)
-        {
-            Token T = allTokens.get(k);
-           // System.out.println(T.getText() +" "+T.getType());
-            switch (T.getType()) {
-                case openGraffa -> nestingLevel = nestingLevel + 1;
-                case closeGraffa -> {
-                    if (nestingLevel > 0) {
-                        nestingLevel = nestingLevel - 1;
-                    }
-                }
-                case intType, boolType, voidType -> {
-                    if (k + 1 < allTokens.size()) {
-                        Token nextToken = allTokens.get(k + 1);
-                        String tokenName = nextToken.getText();
-                        if (k + 2 < allTokens.size()) {
-                            Token nextNextToken = allTokens.get(k + 2);
-                            if (nextNextToken.getType() == comma) {
-                                // declaration
-                            } else if (nextNextToken.getType() == assign) {
-                                // declaration + initialization
-                                if (k + 3 < allTokens.size()) {
-                                    Token initValToken = allTokens.get(k + 3);
-                                    String initVal = initValToken.getText();
-                                    // save initVal
-                                }
-                            } else if (nextNextToken.getType() == equals) {
-                                // function declaration
-                            }
-                        }
-                    }
-                }
-                default -> {
-                    //System.out.println(T.getType())
-                    //System.out.println("Errori sintattici rilevati, consultare il file /out/errors.txt");
-                    //throw new semanticanalysis.Error2();
-                }
-                //
-            }
-        }
-    */
     }
 
 
     //Exercise 3
-    Environment e = new Environment();
+    //Environment e = new Environment();
 
 
 }

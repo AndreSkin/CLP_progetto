@@ -5,10 +5,10 @@ import semanticanalysis.SemanticError;
 
 import java.util.ArrayList;
 
-public class BoolExpNode implements Node{
+public class BoolNode implements Node{
     private boolean val;
 
-    public BoolExpNode(boolean v) {
+    public BoolNode(boolean v) {
         this.val = v;
     }
     @Override

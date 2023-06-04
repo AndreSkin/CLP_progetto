@@ -1,28 +1,28 @@
 grammar SimpLanPlus ;
 
-prog   : exp                  	#singleExp
-       | (dec)+ (stm)* (exp)?   #multipleExp
+prog   : exp    	           #singleExp
+       | (dec)+ (stm)* (exp)?  #multipleExp
        ;
 
 dec    : type ID ';'               #varDec
        | type ID '(' ( param ( ',' param)* )? ')' '{' body '}' #funDec
        ;
-         
+
 param  : type ID ;
 
 body   : (dec)* (stm)* (exp)?
 	   ;
 
-type   : 'int'  
-       | 'bool' 
+type   : 'int'
+       | 'bool'
        | 'void'
-       ;  
+       ;
 
 stm    : ID '=' exp ';' #asgStm
        | ID '(' (exp (',' exp)* )? ')' ';' #funCallStm
        | 'if' '(' exp ')' '{' (stm)+ '}' ('else' '{' (stm)+ '}')? #ifStm
 	   ;
-           
+
 exp    :  INTEGER #intExp
        | 'true' #trueExp
        | 'false' #falseExp
@@ -36,13 +36,13 @@ exp    :  INTEGER #intExp
        | '(' exp ')' #bracketExp
        | ID '(' (exp (',' exp)* )? ')' #funCallExp
        ;
- 
+
 /*------------------------------------------------------------------
  * LEXER RULES
  *------------------------------------------------------------------*/
 
 //Numbers
-fragment DIGIT  : '0'..'9';    
+fragment DIGIT  : '0'..'9';
 INTEGER         : DIGIT+;
 
 //IDs
@@ -54,4 +54,4 @@ WS              : (' '|'\t'|'\n'|'\r')-> skip;
 LINECOMENTS     : '//' (~('\n'|'\r'))* -> skip;
 BLOCKCOMENTS    : '/*'( ~('/'|'*')|'/'~'*'|'*'~'/'|BLOCKCOMENTS)* '*/' -> skip;
 
-ERR             : .  -> channel(HIDDEN); 
+ERR             : .  -> channel(HIDDEN);

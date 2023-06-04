@@ -9,7 +9,6 @@ import semanticanalysis.SymbolTable;
 public class DecNode implements Node {
     private String id;
     private TypeNode type;
-    private int nesting;
 
     public DecNode(String _id, TypeNode _type) {
         id = _id ;

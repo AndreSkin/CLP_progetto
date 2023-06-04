@@ -5,9 +5,9 @@ import semanticanalysis.SemanticError;
 
 import java.util.ArrayList;
 
-public class IntExpNode implements Node{
+public class IntNode implements Node{
     int val;
-    public IntExpNode(int v) {
+    public IntNode(int v) {
         this.val = v;
     }
 

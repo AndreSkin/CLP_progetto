@@ -5,12 +5,17 @@ import semanticanalysis.SemanticError;
 
 import java.util.ArrayList;
 
-public class NotExpNode implements Node{
-    Node exp;
-    public NotExpNode(Node e) {
-        this.exp = e;
-    }
+public class MulDivNode implements Node{
 
+    Node e1;
+    Node e2;
+    String op;
+
+    public MulDivNode(Node e1, String op, Node e2) {
+        this.e1 = e1;
+        this.e2 = e2;
+        this.op = op;
+    }
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         return null;
@@ -18,15 +23,12 @@ public class NotExpNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) {
-        if(exp.typeCheck(e).getType() != "bool"){
-            System.out.println("Operatore non booleano.");
-        }
-        return new TypeNode("bool");
+        return null;
     }
 
     @Override
     public String toPrint(String s) {
-        return s+exp.toPrint(s);
+        return null;
     }
 
     @Override
