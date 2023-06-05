@@ -18,9 +18,8 @@ public class DecNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         if (e.getSymbolTable().lookup(id) != null)
-            errors.add(new SemanticError("Var id " + id + " already declared"));
+            errors.add(new SemanticError("Variabile" + id + " già dichiarata nel blocco corrente."));
         else e.getSymbolTable().insert(id, type) ;
-
         return errors ;
     }
 
@@ -35,7 +34,7 @@ public class DecNode implements Node {
     }
 
     public String toPrint(String s) {
-        return null;/*s + "Var:" + id + type.toPrint(" ") + "\n" + exp.toPrint(s+"\t");*/
+        return "Var: "+this.id+": "+this.type.getType();
     }
 
 }

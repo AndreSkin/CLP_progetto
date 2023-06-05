@@ -77,6 +77,18 @@ public interface SimpLanPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfStm(SimpLanPlusParser.IfStmContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SimpLanPlusParser#thenStmBranch}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitThenStmBranch(SimpLanPlusParser.ThenStmBranchContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpLanPlusParser#elseStmBranch}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseStmBranch(SimpLanPlusParser.ElseStmBranchContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code plusMinusExp}
 	 * labeled alternative in {@link SimpLanPlusParser#exp}.
 	 * @param ctx the parse tree
@@ -160,4 +172,16 @@ public interface SimpLanPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIntExp(SimpLanPlusParser.IntExpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpLanPlusParser#thenExpBranch}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitThenExpBranch(SimpLanPlusParser.ThenExpBranchContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SimpLanPlusParser#elseExpBranch}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseExpBranch(SimpLanPlusParser.ElseExpBranchContext ctx);
 }

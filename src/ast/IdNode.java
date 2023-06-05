@@ -19,7 +19,7 @@ public class IdNode implements Node{
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
         SymbolTableEntry s= e.getSymbolTable().lookup(this.id);
         if (s==null)
-            result.add(new SemanticError("Variable non dichiarata."));
+            result.add(new SemanticError("Variabile "+this.id+" non dichiarata."));
         return result;
     }
 
@@ -28,7 +28,7 @@ public class IdNode implements Node{
         SymbolTableEntry s= e.getSymbolTable().lookup(this.id);
         if(s == null) {
             //non dichiarata
-            System.out.println("Variabile non dichiarata.");
+            System.out.println("Variabile "+this.id+" non dichiarata.");
             throw new Error();
         }
         //Qui sto facendo typecheck di quando la variabile occorre come termine di una exp, quindi qui devo controllare l'inizializzazione

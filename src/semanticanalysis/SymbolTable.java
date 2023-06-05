@@ -27,9 +27,9 @@ public class SymbolTable {
 		int n = symbolTable.size()-1;
 		boolean found = false;
 		SymbolTableEntry result = null;
-		while (n>0 && !found) {
+		while (n>-1 && !found) {
 			Hashtable<String, SymbolTableEntry> x = symbolTable.get(n);
-			if(x.contains(id)) {
+			if(x.get(id) != null) {
 				found = true;
 				result = x.get(id);
 			} else n-=1;
@@ -40,7 +40,7 @@ public class SymbolTable {
 	public int nslookup(String id) {
 		int n = symbolTable.size()-1;
 		boolean found = false;
-		while (n>0 && !found) {
+		while (n>-1 && !found) {
 			Hashtable<String, SymbolTableEntry> x = symbolTable.get(n);
 			if(x.contains(id)) {
 				found = true;
@@ -62,9 +62,10 @@ public class SymbolTable {
 	}
 
 	public void insert(String id, TypeNode type) {
-		Hashtable<String, SymbolTableEntry> x = symbolTable.peek();
+		Hashtable<String, SymbolTableEntry> x = symbolTable.pop();
 		SymbolTableEntry st = new SymbolTableEntry(id, type, Status.DECLARED);
 		x.put(id, st);
+		symbolTable.push(x);
 	}
 
 

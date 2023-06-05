@@ -37,7 +37,11 @@ import java.util.ArrayList;
                     res += dec.toPrint(indent + " ");
                 }
             }
-            return "\n" + indent + "Program" + res;
+
+            if(this.exp != null) {
+                res += exp.toPrint(indent+ " ");
+            }
+            return "\n" + "Program" + res;
         }
 
         @Override
@@ -47,7 +51,28 @@ import java.util.ArrayList;
 
         @Override
         public ArrayList<SemanticError> checkSemantics(Environment e) {
-            return null;
+            this.env = e;
+            this.env.getSymbolTable().enterInNewBlock();
+            ArrayList<SemanticError> result = new ArrayList<SemanticError>();
+            // Check the semantics of declarations
+            if (this.declarations != null && this.declarations.size() > 0) {
+                for (Node n : this.declarations) {
+                    result.addAll(n.checkSemantics(env));
+                }
+            }
+
+            // Check the semantics of statements
+            if (this.statements != null && this.statements.size() > 0) {
+                for (Node n : this.statements) {
+                    result.addAll(n.checkSemantics(env));
+                }
+            }
+
+            if(this.exp != null) {
+                result.addAll(exp.checkSemantics(env));
+            }
+            this.env.getSymbolTable().exitFromBlock();
+            return result;
         }
 
         @Override

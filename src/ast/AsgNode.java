@@ -11,6 +11,11 @@ public class AsgNode implements Node{
     private String id;
     private Node exp;
     private SymbolTableEntry st;
+
+    public AsgNode(String id, Node exp) {
+        this.id = id;
+        this.exp = exp;
+    }
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> res = new ArrayList<SemanticError>();

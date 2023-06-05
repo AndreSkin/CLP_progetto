@@ -2,6 +2,7 @@ import ast.Node;
 import org.antlr.v4.runtime.*;
 import semanticanalysis.Environment;
 import semanticanalysis.Error2;
+import semanticanalysis.SemanticError;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class Main {
             }
 
             for (int i = 0; i<lexerErrors.size();i++)
-            {
+
                 int errLine = lexerErrors.get(i).getLine();
                 String errStr = lexerErrors.get(i).getText();
                 int errPos = lexerErrors.get(i).getCharPositionInLine() +1;
@@ -65,12 +66,19 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         SimpLanPlusParser parser = new SimpLanPlusParser(tokens);
-        Visitor visitor = new Visitor();
+        Visitor visitor = new Visitor(false);
         //Bisogna produrre l'AST
         //System.out.println(parser.prog());
         Node ast = visitor.visit(parser.prog());
-
-
+        System.out.println("Started Check Semantics...");
+        Environment env = new Environment();
+        ArrayList<SemanticError> err = ast.checkSemantics(env);
+        if (!err.isEmpty()) {
+            for(SemanticError er: err)
+                System.out.println(er);
+            throw new Error2("Errori semantici presenti.");
+        }
+        System.out.println("Check Semantics Passed.");
     }
 
 

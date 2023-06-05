@@ -18,17 +18,30 @@ public class MulDivNode implements Node{
     }
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
-        return null;
+        ArrayList<SemanticError> result = new ArrayList<SemanticError>();
+        if (this.e1 != null) {
+            result.addAll(e1.checkSemantics(e));
+        }
+        if (this.e2 != null) {
+            result.addAll(e2.checkSemantics(e));
+        }
+        return result;
     }
 
     @Override
-    public TypeNode typeCheck(Environment e) {
-        return null;
+    public TypeNode typeCheck(Environment e) throws Error {
+
+        if(!e1.typeCheck(e).getType().equals("int") || !e2.typeCheck(e).getType().equals("int")){
+            System.out.println("Variabili non compatibili con questa operazione.");
+            throw new Error();
+        }
+
+        return new TypeNode("int");
     }
 
     @Override
     public String toPrint(String s) {
-        return null;
+        return e1.toPrint(s)+op+e2.toPrint(s);
     }
 
     @Override

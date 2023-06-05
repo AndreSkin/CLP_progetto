@@ -121,6 +121,26 @@ public interface SimpLanPlusListener extends ParseTreeListener {
 	 */
 	void exitIfStm(SimpLanPlusParser.IfStmContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SimpLanPlusParser#thenStmBranch}.
+	 * @param ctx the parse tree
+	 */
+	void enterThenStmBranch(SimpLanPlusParser.ThenStmBranchContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpLanPlusParser#thenStmBranch}.
+	 * @param ctx the parse tree
+	 */
+	void exitThenStmBranch(SimpLanPlusParser.ThenStmBranchContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpLanPlusParser#elseStmBranch}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseStmBranch(SimpLanPlusParser.ElseStmBranchContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpLanPlusParser#elseStmBranch}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseStmBranch(SimpLanPlusParser.ElseStmBranchContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code plusMinusExp}
 	 * labeled alternative in {@link SimpLanPlusParser#exp}.
 	 * @param ctx the parse tree
@@ -264,4 +284,24 @@ public interface SimpLanPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIntExp(SimpLanPlusParser.IntExpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpLanPlusParser#thenExpBranch}.
+	 * @param ctx the parse tree
+	 */
+	void enterThenExpBranch(SimpLanPlusParser.ThenExpBranchContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpLanPlusParser#thenExpBranch}.
+	 * @param ctx the parse tree
+	 */
+	void exitThenExpBranch(SimpLanPlusParser.ThenExpBranchContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SimpLanPlusParser#elseExpBranch}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseExpBranch(SimpLanPlusParser.ElseExpBranchContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpLanPlusParser#elseExpBranch}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseExpBranch(SimpLanPlusParser.ElseExpBranchContext ctx);
 }

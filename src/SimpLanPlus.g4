@@ -20,22 +20,31 @@ type   : 'int'
 
 stm    : ID '=' exp ';' #asgStm
        | ID '(' (exp (',' exp)* )? ')' ';' #funCallStm
-       | 'if' '(' exp ')' '{' (stm)+ '}' ('else' '{' (stm)+ '}')? #ifStm
+       | 'if' '(' condition=exp ')' '{' then=thenStmBranch '}' ('else' '{' else=elseStmBranch '}')? #ifStm
 	   ;
+
+thenStmBranch    : (stm)+ ;
+
+elseStmBranch    : (stm)+ ;
+
 
 exp    :  INTEGER #intExp
        | 'true' #trueExp
        | 'false' #falseExp
        | ID #idExp
        | '!' exp #notIdExp
-       | exp ('*' | '/') exp #mulDivExp
-       | exp ('+' | '-') exp #plusMinusExp
-       | exp ('>' | '<' | '>=' | '<=' | '==') exp #cfrExp
-       | exp ('&&' | '||') exp #logicalExp
-       | 'if' '(' exp ')' '{' (stm)* exp '}' 'else' '{' (stm)* exp '}' #ifExp
+       | e1=exp (mul='*' | div='/') e2=exp #mulDivExp
+       | e1=exp ('+' | '-') e2=exp #plusMinusExp
+       | e1=exp ('>' | '<' | '>=' | '<=' | '==') e2=exp #cfrExp
+       | e1=exp ('&&' | '||') e2=exp #logicalExp
+       | 'if' '(' condition=exp ')' '{' then=thenExpBranch '}' 'else' '{' else=elseExpBranch '}' #ifExp
        | '(' exp ')' #bracketExp
        | ID '(' (exp (',' exp)* )? ')' #funCallExp
        ;
+
+thenExpBranch    : (stm)* exp ;
+
+elseExpBranch    : (stm)* exp ;
 
 /*------------------------------------------------------------------
  * LEXER RULES

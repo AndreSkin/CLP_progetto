@@ -18,6 +18,12 @@ public class Environment {
         this.symbolTable = st;
     }
 
+    public void enterInNewBlock() {this.symbolTable.enterInNewBlock();}
+
+    public void exitFromBlock() {
+        this.symbolTable.exitFromBlock();
+    }
+
     public int getNestingLevel() {
         return this.symbolTable.nesting();
     }
