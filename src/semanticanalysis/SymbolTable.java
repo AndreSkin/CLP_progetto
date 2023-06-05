@@ -18,7 +18,10 @@ public class SymbolTable {
 		current.put(elem, st);
 		symbolTable.push(current);
 	}
-
+	public Hashtable<String, SymbolTableEntry> get(int i) {
+		return symbolTable.get(i);
+	}
+	public int getSize() {return symbolTable.size();}
 	public int nesting() {
 		return symbolTable.size() - 1;
 	}

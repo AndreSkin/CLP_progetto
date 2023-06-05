@@ -20,7 +20,7 @@ type   : 'int'
 
 stm    : ID '=' exp ';' #asgStm
        | ID '(' (exp (',' exp)* )? ')' ';' #funCallStm
-       | 'if' '(' condition=exp ')' '{' then=thenStmBranch '}' ('else' '{' else=elseStmBranch '}')? #ifStm
+       | 'if' '(' condition=exp ')' '{' thenB=thenStmBranch '}' ('else' '{' elseB=elseStmBranch '}')? #ifStm
 	   ;
 
 thenStmBranch    : (stm)+ ;
@@ -33,11 +33,11 @@ exp    :  INTEGER #intExp
        | 'false' #falseExp
        | ID #idExp
        | '!' exp #notIdExp
-       | e1=exp (mul='*' | div='/') e2=exp #mulDivExp
-       | e1=exp ('+' | '-') e2=exp #plusMinusExp
-       | e1=exp ('>' | '<' | '>=' | '<=' | '==') e2=exp #cfrExp
-       | e1=exp ('&&' | '||') e2=exp #logicalExp
-       | 'if' '(' condition=exp ')' '{' then=thenExpBranch '}' 'else' '{' else=elseExpBranch '}' #ifExp
+       | e1=exp (op='*' | op='/') e2=exp #mulDivExp
+       | e1=exp (op='+' | op='-') e2=exp #plusMinusExp
+       | e1=exp (op='>' | op='<' | op='>=' | op='<=' | op='==') e2=exp #cfrExp
+       | e1=exp (op='&&' | op='||') e2=exp #logicalExp
+       | 'if' '(' condition=exp ')' '{' thenB=thenExpBranch '}' 'else' '{' elseB=elseExpBranch '}' #ifExp
        | '(' exp ')' #bracketExp
        | ID '(' (exp (',' exp)* )? ')' #funCallExp
        ;

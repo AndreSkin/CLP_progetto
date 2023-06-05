@@ -31,4 +31,5 @@ public class SymbolTableEntry {
 		this.status = Status.INITIALIZED;
 	}
 
+	public void setDeclared() { this.status = Status.DECLARED;}
 }

@@ -24,6 +24,12 @@ public class Environment {
         this.symbolTable.exitFromBlock();
     }
 
+    public void copy(Environment from) {
+
+        //DA MODIFICARE
+        this.symbolTable = new SymbolTable();
+    }
+
     public int getNestingLevel() {
         return this.symbolTable.nesting();
     }

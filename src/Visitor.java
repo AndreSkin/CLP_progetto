@@ -114,7 +114,20 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     public Node visitIfStm(SimpLanPlusParser.IfStmContext ctx) {
         if(this.log)
             System.out.println("visitIfStm");
-        return null;
+
+        SimpLanPlusParser.ThenStmBranchContext thenS = ctx.thenB;
+        ArrayList<Node> innerThenStatements = new ArrayList<Node>();
+        for(SimpLanPlusParser.StmContext sm: thenS.stm()){
+            innerThenStatements.add(visit(sm));
+        }
+
+        SimpLanPlusParser.ElseStmBranchContext elseS = ctx.elseB;
+        ArrayList<Node> innerElseStatements = new ArrayList<Node>();
+        for(SimpLanPlusParser.StmContext sm: thenS.stm()){
+            innerElseStatements.add(visit(sm));
+        }
+
+        return new IfStmNode(visit(ctx.condition), innerThenStatements, innerElseStatements);
     }
 
     public Node visitIntExp(SimpLanPlusParser.IntExpContext ctx) {
@@ -150,37 +163,58 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     public Node visitMulDivExp(SimpLanPlusParser.MulDivExpContext ctx) {
         if(this.log)
             System.out.println("visitMulDivExp");
-        return new MulDivNode(visit(ctx.e1), ctx.mul != null ? ctx.mul.getText() : ctx.div.getText(), visit(ctx.e2));
+        return new MulDivNode(visit(ctx.e1), ctx.op.getText(), visit(ctx.e2));
     }
 // term   : left=exp ((mul='*' | div='/') right=exp)?
     public Node visitPlusMinusExp(SimpLanPlusParser.PlusMinusExpContext ctx) {
         if(this.log)
             System.out.println("visitPlusMinusExp");
-        return null;
+        return new PlusMinusNode(visit(ctx.e1), ctx.op.getText(), visit(ctx.e2));
     }
 
     public Node visitCfrExp(SimpLanPlusParser.CfrExpContext ctx) {
         if(this.log)
             System.out.println("visitCfrExp");
-        return null;
+        return new CfrExpNode(visit(ctx.e1),ctx.op.getText(), visit(ctx.e2));
     }
 
     public Node visitLogicalExp(SimpLanPlusParser.LogicalExpContext ctx) {
         if(this.log)
             System.out.println("visitLogicalExp");
-        return null;
+        return new LogicalExpNode(visit(ctx.e1),ctx.op.getText(), visit(ctx.e2));
     }
 
     public Node visitIfExp(SimpLanPlusParser.IfExpContext ctx) {
         if(this.log)
             System.out.println("visitIfExp");
-        return null;
+
+        SimpLanPlusParser.ThenExpBranchContext thenS = ctx.thenB;
+        ArrayList<Node> innerThenStatements = new ArrayList<Node>();
+        for(SimpLanPlusParser.StmContext sm: thenS.stm()){
+            innerThenStatements.add(visit(sm));
+        }
+        Node innerThenExp = visit(thenS.exp());
+
+        SimpLanPlusParser.ElseExpBranchContext elseS = null;
+        ArrayList<Node> innerElseStatements = null;
+        Node innerElseExp = null;
+        if(ctx.elseB != null) {
+            elseS = ctx.elseB;
+            innerElseStatements = new ArrayList<Node>();
+            for(SimpLanPlusParser.StmContext sm: elseS.stm()){
+                innerElseStatements.add(visit(sm));
+            }
+            innerElseExp = visit(elseS.exp());
+        }
+
+
+        return new IfExpNode(visit(ctx.condition), innerThenStatements, innerThenExp, innerElseStatements, innerElseExp);
     }
 
     public Node visitBracketExp(SimpLanPlusParser.BracketExpContext ctx) {
         if(this.log)
             System.out.println("visitBracketExp");
-        return null;
+        return visit(ctx.exp());
     }
 
     public Node visitFunCallExp(SimpLanPlusParser.FunCallExpContext ctx) {
