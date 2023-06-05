@@ -1,6 +1,7 @@
 package ast;
 
 import semanticanalysis.Environment;
+import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class NotExpNode implements Node{
     @Override
     public TypeNode typeCheck(Environment e) {
         if(exp.typeCheck(e).getType() != "bool"){
-            System.out.println("Operatore non booleano.");
+            throw new Error2("Errore di TypeChecking: Operatore non booleano.");
         }
         return new TypeNode("bool");
     }

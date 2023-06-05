@@ -1,6 +1,7 @@
 package ast;
 
 import semanticanalysis.Environment;
+import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTableEntry;
 
@@ -34,9 +35,8 @@ public class AsgNode implements Node{
         if (st == null) {
             throw new Error();
         }
-        if(st.getType().getType() != exp.typeCheck(e).getType()){
-            System.out.println("Espressioni incompatibili.");
-            throw new Error();
+        if(!st.getType().getType().equals(this.exp.typeCheck(e).getType())){
+            throw new Error2("Errore di TypeChecking: Espressioni incompatibili durante l'assegnamento.");
         }
         //Controllo se assegno una funzione?
 

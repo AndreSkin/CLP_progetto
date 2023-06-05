@@ -1,6 +1,7 @@
 package ast;
 
 import semanticanalysis.Environment;
+import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
 
 import java.lang.reflect.Array;
@@ -41,7 +42,7 @@ public class DecFunNode implements Node{
         if (innerExp != null) {
             TypeNode returnType = innerExp.typeCheck(e);
             if (returnType.getType() != this.type.getType())
-                throw new Error();
+                throw new Error2("Errore di TypeChecking: tipo di ritorno della funzione diverso dal tipo atteso.");
         }
         return this.type;
     }

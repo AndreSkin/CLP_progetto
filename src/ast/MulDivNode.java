@@ -1,6 +1,7 @@
 package ast;
 
 import semanticanalysis.Environment;
+import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
 
 import java.util.ArrayList;
@@ -32,10 +33,8 @@ public class MulDivNode implements Node{
     public TypeNode typeCheck(Environment e) throws Error {
 
         if(!e1.typeCheck(e).getType().equals("int") || !e2.typeCheck(e).getType().equals("int")){
-            System.out.println("Variabili non compatibili con questa operazione.");
-            throw new Error();
+            throw new Error2("Errore di TypeChecking: Variabili non compatibili con questa operazione.");
         }
-
         return new TypeNode("int");
     }
 

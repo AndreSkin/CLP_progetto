@@ -60,11 +60,16 @@ public class Main {
             throw new Error2("Errori semantici presenti.");
         }
         System.out.println("Analisi Semantica completata con successo.");
+
+
+        System.out.println("Inizio Type Checking");
+        ast.typeCheck(env);
+        System.out.println("Type Checking completato con successo.");
+
+
     }
 
 
-    //Exercise 3
-    //Environment e = new Environment();
 
 
 }

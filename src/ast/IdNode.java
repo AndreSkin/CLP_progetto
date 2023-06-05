@@ -1,9 +1,6 @@
 package ast;
 
-import semanticanalysis.Environment;
-import semanticanalysis.SemanticError;
-import semanticanalysis.Status;
-import semanticanalysis.SymbolTableEntry;
+import semanticanalysis.*;
 
 import java.util.ArrayList;
 
@@ -28,13 +25,11 @@ public class IdNode implements Node{
         SymbolTableEntry s= e.getSymbolTable().lookup(this.id);
         if(s == null) {
             //non dichiarata
-            System.out.println("Variabile "+this.id+" non dichiarata.");
-            throw new Error();
+            throw new Error2("Errore di TypeChecking: Variabile "+this.id+" non dichiarata.");
         }
         //Qui sto facendo typecheck di quando la variabile occorre come termine di una exp, quindi qui devo controllare l'inizializzazione
         if (s.getStatus() == Status.DECLARED) {
-            System.out.println("Uso di variabile dichiarata ma non inizializzata.");
-            throw new Error();
+            throw new Error2("Errore di TypeChecking: Uso di variabile dichiarata ma non inizializzata.");
         }
         //se volessi implementare anche le usate e non usate, l'update va messo qui
         return s.getType();
