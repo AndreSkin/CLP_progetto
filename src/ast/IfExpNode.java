@@ -24,18 +24,21 @@ public class IfExpNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
+        System.out.println("IfExpNode");
 
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
         result.addAll(condition.checkSemantics(e));
 
-        //DA MODIFICARE SERVE DEEP COPY
-        EnviroAnment tmp = e;
+        Environment tmp = new Environment(e);
+
+        System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
 
         for(Node n: innerThenStatements){
             result.addAll(n.checkSemantics(e));
         }
         result.addAll(innerThenExp.checkSemantics(e));
 
+        System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
 
         if(innerElseStatements != null) {
             for (Node n : innerElseStatements) {

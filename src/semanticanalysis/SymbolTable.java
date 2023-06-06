@@ -5,12 +5,29 @@ import ast.TypeNode;
 import java.util.Hashtable;
 import java.util.Stack;
 
-public class SymbolTable {
+public class SymbolTable{
 	private Stack<Hashtable<String, SymbolTableEntry>> symbolTable;
 	
 	public SymbolTable() {
 		symbolTable = new Stack<>();
 	}
+
+	public SymbolTable(Stack<Hashtable<String, SymbolTableEntry>> symbolTable) {
+		this.symbolTable = new Stack<Hashtable<String, SymbolTableEntry>>();
+		for(Hashtable<String, SymbolTableEntry> entry: symbolTable) {
+			Hashtable<String, SymbolTableEntry> newHash = new Hashtable<String, SymbolTableEntry>();
+			for(String k: entry.keySet()) {
+				SymbolTableEntry se = entry.get(k);
+				SymbolTableEntry newSe = new SymbolTableEntry(se.getLabel(), se.getType(), se.getStatus());
+				newHash.put(k,newSe);
+			}
+			this.symbolTable.push(newHash);
+		}
+	}
+
+	public Stack<Hashtable<String, SymbolTableEntry>> getSymbolTable() {
+		return this.symbolTable;
+	};
 	
 	public SymbolTable(String elem, SymbolTableEntry st) {
 		symbolTable = new Stack<>();
@@ -79,4 +96,5 @@ public class SymbolTable {
 	public void exitFromBlock() {
 		this.symbolTable.pop();
 	}
+
 }
