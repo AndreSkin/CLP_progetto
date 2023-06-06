@@ -31,14 +31,14 @@ public class IfExpNode implements Node{
 
         Environment tmp = new Environment(e);
 
-        System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
+        //System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
 
         for(Node n: innerThenStatements){
             result.addAll(n.checkSemantics(e));
         }
         result.addAll(innerThenExp.checkSemantics(e));
 
-        System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
+        //System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
 
         if(innerElseStatements != null) {
             for (Node n : innerElseStatements) {
@@ -54,7 +54,7 @@ public class IfExpNode implements Node{
         if (!condition.typeCheck(e).getType().equals("bool") )
             throw new Error2("Errore di TypeChecking: Guardia non booleana.");
 
-        Environment tmp = e;
+        Environment tmp = new Environment(e);
 
         for(Node n: innerThenStatements){
             n.typeCheck(e);

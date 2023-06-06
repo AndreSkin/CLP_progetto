@@ -123,7 +123,7 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
 
         SimpLanPlusParser.ElseStmBranchContext elseS = ctx.elseB;
         ArrayList<Node> innerElseStatements = new ArrayList<Node>();
-        for(SimpLanPlusParser.StmContext sm: thenS.stm()){
+        for(SimpLanPlusParser.StmContext sm: elseS.stm()){
             innerElseStatements.add(visit(sm));
         }
 

@@ -29,7 +29,7 @@ public class IdNode implements Node{
         }
         //Qui sto facendo typecheck di quando la variabile occorre come termine di una exp, quindi qui devo controllare l'inizializzazione
         if (s.getStatus() == Status.DECLARED) {
-            throw new Error2("Errore di TypeChecking: Uso di variabile dichiarata ma non inizializzata.");
+            throw new Error2("Errore di TypeChecking: Uso della variabile "+s.getLabel()+" dichiarata ma non inizializzata.");
         }
         //se volessi implementare anche le usate e non usate, l'update va messo qui
         return s.getType();

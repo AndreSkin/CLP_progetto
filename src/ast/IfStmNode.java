@@ -20,7 +20,9 @@ public class IfStmNode implements Node{
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
         result.addAll(condition.checkSemantics(e));
-        Environment tmp = e;
+        Environment tmp = new Environment(e);
+
+        //System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
 
         for(Node n: then_node) {
             result.addAll(n.checkSemantics(e));
@@ -36,8 +38,6 @@ public class IfStmNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error2{
-        System.out.println("IfStmNode");
-
         if (!condition.typeCheck(e).getType().equals("bool") )
             throw new Error2("Errore di TypeChecking: Guardia non booleana.");
 
