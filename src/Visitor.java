@@ -123,9 +123,10 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
 
         SimpLanPlusParser.ElseStmBranchContext elseS = ctx.elseB;
         ArrayList<Node> innerElseStatements = new ArrayList<Node>();
-        for(SimpLanPlusParser.StmContext sm: elseS.stm()){
-            innerElseStatements.add(visit(sm));
-        }
+        if(elseS != null)
+            for(SimpLanPlusParser.StmContext sm: elseS.stm()){
+                innerElseStatements.add(visit(sm));
+            }
 
         return new IfStmNode(visit(ctx.condition), innerThenStatements, innerElseStatements);
     }
@@ -195,18 +196,15 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         }
         Node innerThenExp = visit(thenS.exp());
 
-        SimpLanPlusParser.ElseExpBranchContext elseS = null;
-        ArrayList<Node> innerElseStatements = null;
+        SimpLanPlusParser.ElseExpBranchContext elseS = ctx.elseB;
+        ArrayList<Node> innerElseStatements = new ArrayList<>();
         Node innerElseExp = null;
-        if(ctx.elseB != null) {
-            elseS = ctx.elseB;
-            innerElseStatements = new ArrayList<Node>();
+        if(elseS != null) {
             for(SimpLanPlusParser.StmContext sm: elseS.stm()){
                 innerElseStatements.add(visit(sm));
             }
             innerElseExp = visit(elseS.exp());
         }
-
 
         return new IfExpNode(visit(ctx.condition), innerThenStatements, innerThenExp, innerElseStatements, innerElseExp);
     }

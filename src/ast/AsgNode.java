@@ -11,7 +11,6 @@ public class AsgNode implements Node{
 
     private String id;
     private Node exp;
-    private SymbolTableEntry st;
 
     public AsgNode(String id, Node exp) {
         this.id = id;
@@ -20,7 +19,7 @@ public class AsgNode implements Node{
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> res = new ArrayList<SemanticError>();
-        this.st = e.getSymbolTable().lookup(id);
+        SymbolTableEntry st = e.getSymbolTable().lookup(id);
         if(st == null){
             System.out.println("Variabile non dichiarata nell'ambiente corrente.");
             throw new Error();
@@ -32,6 +31,7 @@ public class AsgNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error {
+        SymbolTableEntry st = e.getSymbolTable().lookup(id);
         if (st == null) {
             throw new Error();
         }
@@ -40,7 +40,7 @@ public class AsgNode implements Node{
         }
         //Controllo se assegno una funzione?
 
-        st.setInitialized();
+        e.getSymbolTable().lookup(id).setInitialized();
         return exp.typeCheck(e);
     }
 
