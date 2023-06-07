@@ -14,9 +14,12 @@ public class TypeNode implements Node {
         this.type = type;
     }
 
+    private boolean isFunction = false;
+
     public TypeNode(String type, ArrayList<TypeNode> params) {
         this.type = type;
         this.params = params;
+        isFunction = true;
     }
 
     @Override
@@ -30,6 +33,10 @@ public class TypeNode implements Node {
 
     public ArrayList<TypeNode> getParams() {
         return this.params;
+    }
+
+    public boolean isFunction() {
+        return isFunction;
     }
 
     @Override

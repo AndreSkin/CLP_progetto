@@ -1,7 +1,9 @@
 package ast;
 
 import semanticanalysis.Environment;
+import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
+import semanticanalysis.SymbolTableEntry;
 
 import java.util.ArrayList;
 
@@ -16,12 +18,43 @@ public class FunCallNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
-        return null;
+        ArrayList<SemanticError> results = new ArrayList<SemanticError>();
+        if (e.getSymbolTable().lookup(this.id) == null)
+            results.add(new SemanticError("Funzione " + this.id + " non dichiarata."));
+        else
+            if (this.params != null)
+                for (Node par : params)
+                    results.addAll(par.checkSemantics(e));
+        return results;
     }
 
     @Override
     public TypeNode typeCheck(Environment e) {
-        return null;
+        SymbolTableEntry ste = e.getSymbolTable().lookup(this.id);
+        TypeNode t = ste.getType();
+        if(!t.isFunction()) {
+            throw new Error2("Errore durante l'invocazione. "+this.id+" non è una funzione.");
+        }
+
+        ArrayList<TypeNode> expectedParams = t.getParams();
+
+        if(this.params.size() != expectedParams.size()) {
+            throw new Error2("Errore durante l'invocazione di"+this.id+". Numero dei parametri errato.");
+        }
+
+        //Controllo dei tipi dei formali e attuali
+
+        for(int i=0; i<this.params.size();i++) {
+            if(!this.params.get(i).typeCheck(e).getType().equals(expectedParams.get(i).getType())) {
+                throw new Error2("Errore durante l'invocazione di"+this.id+". Tipo errato per il "+i+1+" parametro.");
+            }
+
+            if(this.params.get(i).getClass() == IfExpNode.class || this.params.get(i).getClass() == IfStmNode.class) {
+                throw new Error2("Errore durante l'invocazione di"+this.id+". Operatore If Then Else non consentito come parametro.");
+            }
+        }
+
+    return t;
     }
 
     @Override

@@ -235,8 +235,13 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
 
     public Node visitFunCallStm(SimpLanPlusParser.FunCallStmContext ctx) {
         if(this.log)
-            System.out.println("visitFunCallStm");
-        return null;
+            System.out.println("visitFunCallExp");
+
+        ArrayList<Node> params = new ArrayList<>();
+        for(SimpLanPlusParser.ExpContext e: ctx.exp()) {
+            params.add(visit(e));
+        }
+        return new FunCallNode(ctx.ID().getText(), params);
     }
 
 }

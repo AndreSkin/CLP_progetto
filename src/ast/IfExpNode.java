@@ -24,7 +24,6 @@ public class IfExpNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
-        System.out.println("IfExpNode");
 
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
         result.addAll(condition.checkSemantics(e));
@@ -75,8 +74,8 @@ public class IfExpNode implements Node{
                 Hashtable<String, SymbolTableEntry> tmp2 = tmp.getSymbolTable().get(i);
                 for(String elem: tmp1.keySet()) {
                     if((tmp1.get(elem).getStatus() == Status.INITIALIZED && tmp2.get(elem).getStatus() == Status.DECLARED) || (tmp1.get(elem).getStatus() == Status.DECLARED && tmp2.get(elem).getStatus() == Status.INITIALIZED)) {
-                        throw new Error2("Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
-                        // e.getSymbolTable().get(i).get(elem).setDeclared();
+                        System.out.println("Warning: Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
+                        e.getSymbolTable().get(i).get(elem).setDeclared();
                     }
                 }
             }
