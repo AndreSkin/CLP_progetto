@@ -18,7 +18,7 @@ public class SymbolTable{
 			Hashtable<String, SymbolTableEntry> newHash = new Hashtable<String, SymbolTableEntry>();
 			for(String k: entry.keySet()) {
 				SymbolTableEntry se = entry.get(k);
-				SymbolTableEntry newSe = new SymbolTableEntry(se.getLabel(), se.getType(), se.getStatus());
+				SymbolTableEntry newSe = new SymbolTableEntry(se.getLabel(), se.getType(), se.getStatus(), se.getOffset());
 				newHash.put(k,newSe);
 			}
 			this.symbolTable.push(newHash);
@@ -69,7 +69,7 @@ public class SymbolTable{
 		return n;
 	}
 
-	public void add(String s, SymbolTableEntry st)
+	/*public void add(String s, SymbolTableEntry st)
 	{
 		if(symbolTable.isEmpty()){
 			Hashtable<String, SymbolTableEntry> current = new Hashtable<String, SymbolTableEntry>();
@@ -79,11 +79,11 @@ public class SymbolTable{
 			Hashtable<String, SymbolTableEntry> x = symbolTable.peek();
 			x.put(s, st);
 		}
-	}
+	}*/
 
-	public void insert(String id, TypeNode type) {
+	public void insert(String id, TypeNode type, int offset) {
 		Hashtable<String, SymbolTableEntry> x = symbolTable.pop();
-		SymbolTableEntry st = new SymbolTableEntry(id, type, Status.DECLARED);
+		SymbolTableEntry st = new SymbolTableEntry(id, type, Status.DECLARED, offset);
 		x.put(id, st);
 		symbolTable.push(x);
 	}

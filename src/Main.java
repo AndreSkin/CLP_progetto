@@ -3,6 +3,7 @@ import org.antlr.v4.runtime.*;
 import semanticanalysis.Environment;
 import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
+import semanticanalysis.SymbolTable;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,6 +67,16 @@ public class Main {
         ast.typeCheck(env);
         System.out.println("Type Checking completato con successo.");
 
+        /*
+        Codice per debug Offset
+        SymbolTable st = env.getSymbolTable();
+        for(int i=0; i<st.getSize();i++) {
+            System.out.println("Livello "+i);
+            for(String k: st.get(i).keySet()){
+                System.out.println(k+": "+st.get(i).get(k).getOffset());
+            }
+            System.out.println("-----");
+        }*/
 
     }
 

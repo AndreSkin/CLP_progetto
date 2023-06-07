@@ -45,8 +45,8 @@ public class TypeNode implements Node {
     }
 
     @Override
-    public String codeGeneration(/*LabelGenerator labgen,*/ Environment localenv) {
-        return null;
+    public String codeGeneration(Environment e) {
+        return "";
     }
 
     @Override

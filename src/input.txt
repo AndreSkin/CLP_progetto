@@ -1,0 +1,10 @@
+void h(int n){
+  	  int x ; int y ;
+          if (n==0){ x = n+1 ;} else { h(n-1) ; x = n ; y = x ;}
+     }
+int x;
+int y;
+int z;
+y=3;
+y=y+1;
+h(5) ;

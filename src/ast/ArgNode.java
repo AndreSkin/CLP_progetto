@@ -18,7 +18,10 @@ public class ArgNode implements Node{
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         if (e.getSymbolTable().lookup(id) != null)
             errors.add(new SemanticError("Variabile" + id + " già dichiarata per la funzione."));
-        else e.getSymbolTable().insert(id, type) ;
+        else {
+            e.getSymbolTable().insert(id, type,e.getOffset()) ;
+            e.incrementOffset();
+        }
         // TODO: 6/7/23 Da fare qui o nella chiamata di funzione?
         e.getSymbolTable().lookup(id).setInitialized();
         return errors ;

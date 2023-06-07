@@ -40,13 +40,14 @@ public class DecFunNode implements Node{
         }
 
         TypeNode function = new TypeNode(this.type.getType(), paramsList);
-        st.insert(this.id, function);
+        // TODO: 6/7/23 Offset va bene?
+        st.insert(this.id, function,-1);
         //Analizzo dentro
         this.env = new Environment();
 
         this.env.getSymbolTable().enterInNewBlock();
 
-        this.env.getSymbolTable().insert(this.id, function);
+        this.env.getSymbolTable().insert(this.id, function, -1);
 
         for(Node arg: params) {
             results.addAll(arg.checkSemantics(this.env));

@@ -19,7 +19,10 @@ public class DecNode implements Node {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         if (e.getSymbolTable().lookup(id) != null)
             errors.add(new SemanticError("Variabile" + id + " già dichiarata nel blocco corrente."));
-        else e.getSymbolTable().insert(id, type) ;
+        else {
+            e.getSymbolTable().insert(id, type, e.getOffset()) ;
+            e.incrementOffset();
+        }
         return errors ;
     }
 
@@ -30,7 +33,7 @@ public class DecNode implements Node {
     public String codeGeneration(Environment e) {
         /*return exp.codeGeneration() +
                 "pushr A0 \n" ;*/
-        return null;
+        return "";
     }
 
     public String toPrint(String s) {
