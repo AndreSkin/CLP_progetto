@@ -1,3 +1,4 @@
-int a; int b; int c ; c = 2 ;
-if (c > 1) { b = c ; } else { b = 2; }
-b+2;
+void h(int n){
+  	  int x ; int y ;
+          if (n==0){ x = n+1 ;} else { h(n-1) ; x = n ; y = x ;}
+}

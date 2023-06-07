@@ -1,5 +1,6 @@
 import ast.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.SimpleTimeZone;
 
@@ -55,7 +56,19 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         return new DecNode(ctx.ID().getText(), typeNode);
     }
 
+    public Node visitParam(SimpLanPlusParser.ParamContext ctx) {
+        if(this.log)
+            System.out.println("visitParam");
+
+        //visit the type
+        TypeNode typeNode = (TypeNode) visit(ctx.type());
+
+        //build the varNode
+        return new ArgNode(typeNode,ctx.ID().getText());
+    }
+
     public Node visitFunDec(SimpLanPlusParser.FunDecContext ctx) {
+        // TODO: 6/6/23 Controlla anche funzione senza parametri
         if(this.log)
             System.out.println("visitFunDec");
 
@@ -68,7 +81,7 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         ArrayList<Node> innerDecs = new ArrayList<Node>();
         ArrayList<Node> innerStatements = new ArrayList<Node>();
         Node innerExp;
-        //check whether there are actually nested decs
+
         SimpLanPlusParser.BodyContext body = ctx.body();
 
         if(body.dec() != null)
@@ -86,8 +99,6 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         } else {
             innerExp = null;
         }
-        //get the exp body
-        Node exp = visit(body.exp());
 
         return new DecFunNode(visit(ctx.type()), ctx.ID().getText(), param, innerDecs, innerStatements, innerExp);
     }
@@ -104,12 +115,7 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         return new AsgNode(ctx.ID().getText(), visit(ctx.exp()));
     }
 
-    //todo
-    public Node visitFunCallStm(SimpLanPlusParser.FunCallStmContext ctx) {
-        if(this.log)
-            System.out.println("visitFunCallStm");
-        return null;
-    }
+
 
     public Node visitIfStm(SimpLanPlusParser.IfStmContext ctx) {
         if(this.log)
@@ -216,8 +222,20 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     }
 
     public Node visitFunCallExp(SimpLanPlusParser.FunCallExpContext ctx) {
+        // TODO: 6/6/23 Controlla bene la differenza tra le due chiamate di funzione. Posso usare lo stesso Nodo?
         if(this.log)
             System.out.println("visitFunCallExp");
+
+        ArrayList<Node> params = new ArrayList<>();
+        for(SimpLanPlusParser.ExpContext e: ctx.exp()) {
+            params.add(visit(e));
+        }
+        return new FunCallNode(ctx.ID().getText(), params);
+    }
+
+    public Node visitFunCallStm(SimpLanPlusParser.FunCallStmContext ctx) {
+        if(this.log)
+            System.out.println("visitFunCallStm");
         return null;
     }
 

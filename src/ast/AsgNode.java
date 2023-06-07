@@ -21,8 +21,7 @@ public class AsgNode implements Node{
         ArrayList<SemanticError> res = new ArrayList<SemanticError>();
         SymbolTableEntry st = e.getSymbolTable().lookup(id);
         if(st == null){
-            System.out.println("Variabile non dichiarata nell'ambiente corrente.");
-            throw new Error();
+            throw new Error2("Variabile "+this.id+" non dichiarata nell'ambiente corrente.");
         } else if(this.exp != null) {
             res.addAll(this.exp.checkSemantics(e));
         }

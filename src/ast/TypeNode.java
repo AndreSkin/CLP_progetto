@@ -9,9 +9,14 @@ import java.util.ArrayList;
 public class TypeNode implements Node {
     // Generic type
     private String type;
-
+    private ArrayList<TypeNode> params;
     public TypeNode(String type){
         this.type = type;
+    }
+
+    public TypeNode(String type, ArrayList<TypeNode> params) {
+        this.type = type;
+        this.params = params;
     }
 
     @Override
@@ -23,6 +28,9 @@ public class TypeNode implements Node {
         return type;
     }
 
+    public ArrayList<TypeNode> getParams() {
+        return this.params;
+    }
 
     @Override
     public TypeNode typeCheck(Environment env) {

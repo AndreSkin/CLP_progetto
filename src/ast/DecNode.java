@@ -10,9 +10,9 @@ public class DecNode implements Node {
     private String id;
     private TypeNode type;
 
-    public DecNode(String _id, TypeNode _type) {
-        id = _id ;
-        type = _type ;
+    public DecNode(String i, TypeNode t) {
+        id = i ;
+        type = t ;
     }
 
     public ArrayList<SemanticError> checkSemantics(Environment e) {

@@ -1,8 +1,6 @@
 package ast;
 
-import semanticanalysis.Environment;
-import semanticanalysis.Error2;
-import semanticanalysis.SemanticError;
+import semanticanalysis.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -27,22 +25,60 @@ public class DecFunNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
-        return null;
+        ArrayList<SemanticError> results = new ArrayList<>();
+        SymbolTable st = e.getSymbolTable();
+        if (st.lookup(this.id) != null) {
+            results.add(new SemanticError("Identificatore della funzione già presente nel blocco corrente."));
+            return results;
+        }
+        ArrayList<TypeNode> paramsList = new ArrayList<>();
+        if(this.params != null) {
+            for(Node p: this.params) {
+                ArgNode tmp = (ArgNode) p;
+                paramsList.add(new TypeNode(tmp.getType().getType()));
+            }
+        }
+
+        TypeNode function = new TypeNode(this.type.getType(), paramsList);
+        st.insert(this.id, function);
+        //Analizzo dentro
+        this.env = new Environment();
+
+        this.env.getSymbolTable().enterInNewBlock();
+
+        this.env.getSymbolTable().insert(this.id, function);
+
+        for(Node arg: params) {
+            results.addAll(arg.checkSemantics(this.env));
+        }
+
+        for(Node dec: innerDecs) {
+            results.addAll(dec.checkSemantics(this.env));
+        }
+
+        for(Node stm: innerStatements) {
+            results.addAll(stm.checkSemantics(this.env));
+        }
+
+        if(innerExp != null)
+            results.addAll(innerExp.checkSemantics(this.env));
+
+        return results;
     }
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error {
         if (innerDecs != null)
             for(Node innerD: this.innerDecs)
-                innerD.typeCheck(e);
+                innerD.typeCheck(this.env);
         if (innerStatements != null)
             for(Node innerS: this.innerStatements)
-                innerS.typeCheck(e);
+                innerS.typeCheck(this.env);
 
         if (innerExp != null) {
-            TypeNode returnType = innerExp.typeCheck(e);
-            if (returnType.getType() != this.type.getType())
-                throw new Error2("Errore di TypeChecking: tipo di ritorno della funzione diverso dal tipo atteso.");
+            TypeNode returnType = innerExp.typeCheck(this.env);
+            if (!returnType.getType().equals(this.type.getType()))
+                throw new Error2("Errore di TypeChecking: Tipo di ritorno della funzione diverso dal tipo atteso.");
         }
         return this.type;
     }
