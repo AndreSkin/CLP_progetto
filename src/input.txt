@@ -1,12 +1,13 @@
 void h(int n){
   	  int x ; int y ;
           if (n==0){ x = n+1 ;} else { h(n-1) ; x = n ; y = x ;}
-     }
+ }
+
 int factorial(int n) {
    if (n <= 1) {
-      return 1;
+     n=1;
    }
-   return n * factorial(n - 1);
+   n * factorial(n - 1)
 }
 
 
@@ -16,25 +17,5 @@ int y;
 int z;
 y=3;
 y=y+1;
-result = (a + b) * (c - d) / e;
 h(5) ;
 factorial(7);
-
-if (x > 0) {
-   if (y > 0) {
-      z = x + y;
-   } else {
-      z = x - y;
-   }
-} else {
-   z = 0;
-}
-
-
-if (x > 0) {
-   y = 1;
-} else if (x < 0) {
-   y = -1;
-} else {
-   y = 0;
-}

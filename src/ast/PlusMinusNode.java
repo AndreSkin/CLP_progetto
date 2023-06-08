@@ -44,7 +44,13 @@ public class PlusMinusNode implements Node{
     }
 
     @Override
-    public String codeGeneration(Environment localenv) {
-        return null;
+    public String codeGeneration(Environment e)
+    {
+        return e1.codeGeneration(e)+
+            "pushr A0 \n" +
+            e2.codeGeneration(e)+
+            "popr T1 \n" +
+            (op.equals("+") ? "add A0 T1 \n" : "sub A0 T1 \n") +
+            "popr A0 \n" ;
     }
 }

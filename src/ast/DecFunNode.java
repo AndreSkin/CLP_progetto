@@ -46,7 +46,7 @@ public class DecFunNode implements Node{
         this.env = new Environment();
 
         this.env.getSymbolTable().enterInNewBlock();
-
+// TODO: 6/7/23 Controlla se ti servono le label qui e se devi incrementare l'offset per il return value
         this.env.getSymbolTable().insert(this.id, function, -1);
 
         for(Node arg: params) {
@@ -101,7 +101,31 @@ public class DecFunNode implements Node{
     }    //Da sistemare se si vuole far printare anche il body
 
     @Override
-    public String codeGeneration(Environment localenv) {
-        return null;
+    public String codeGeneration(Environment e)
+    {
+        String declCode = "" ;
+        if (declist.size() != 0) {
+            for (Node dec:declist){
+                declCode = declCode + dec.codeGeneration();
+            }
+        }
+
+        SimpLanlib.putCode(
+                flabel + ":\n"
+                        + "pushr RA \n"
+                        + declCode
+                        + body.codeGeneration(e)
+                        + "addi SP " + 	declist.size() + "\n"
+                        + "popr RA \n"
+                        + "addi SP " + 	parlist.size() + "\n"
+                        + "pop \n"
+                        + "store FP 0(FP) \n"
+                        + "move FP AL \n"
+                        + "subi AL 1 \n"
+                        + "pop \n"
+                        + "rsub RA \n"
+        );
+
+        return "push "+ flabel +"\n";
     }
 }

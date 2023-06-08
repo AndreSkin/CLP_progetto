@@ -31,41 +31,45 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         System.out.println("Inizio Analisi Sintattica.");
-        SimpLanPlusParser parser = new SimpLanPlusParser(tokens);
+        try {
+        SimpLanPlusParser parser;
+
+        parser = new SimpLanPlusParser(tokens);
+
         Visitor visitor = new Visitor(false);
 
         Node ast = visitor.visit(parser.prog());
 
-        if(!handler.errors.isEmpty()) {
-            File f = new File("out/errors.txt");
-            if (!f.exists()) {
-                f.createNewFile();
-            } else {
-                f.delete();
-                f.createNewFile();
+            if (!handler.errors.isEmpty()) {
+                File f = new File("out/errors.txt");
+                if (!f.exists()) {
+                    f.createNewFile();
+                } else {
+                    f.delete();
+                    f.createNewFile();
+                }
+                for (String s : handler.errors) {
+                    Files.write(Paths.get("out/errors.txt"), s.getBytes(), StandardOpenOption.APPEND);
+                }
+                throw new Error2("Errori sintattici rilevati. Visualizzare l'output nel file ./out/errors.txt");
             }
-            for(String s: handler.errors) {
-                Files.write(Paths.get("out/errors.txt"), s.getBytes(), StandardOpenOption.APPEND);
+            System.out.println("Analisi Sintattica completata con successo.");
+
+
+            System.out.println("Inizio Analisi Semantica.");
+            Environment env = new Environment();
+            ArrayList<SemanticError> err = ast.checkSemantics(env);
+            if (!err.isEmpty()) {
+                for (SemanticError er : err)
+                    System.out.println(er);
+                throw new Error2("Errori semantici presenti.");
             }
-            throw new Error2("Errori sintattici rilevati. Visualizzare l'output nel file ./out/errors.txt");
-        }
-        System.out.println("Analisi Sintattica completata con successo.");
+            System.out.println("Analisi Semantica completata con successo.");
 
 
-        System.out.println("Inizio Analisi Semantica.");
-        Environment env = new Environment();
-        ArrayList<SemanticError> err = ast.checkSemantics(env);
-        if (!err.isEmpty()) {
-            for(SemanticError er: err)
-                System.out.println(er);
-            throw new Error2("Errori semantici presenti.");
-        }
-        System.out.println("Analisi Semantica completata con successo.");
-
-
-        System.out.println("Inizio Type Checking");
-        ast.typeCheck(env);
-        System.out.println("Type Checking completato con successo.");
+            System.out.println("Inizio Type Checking");
+            ast.typeCheck(env);
+            System.out.println("Type Checking completato con successo.");
 
         /*
         Codice per debug Offset
@@ -77,7 +81,10 @@ public class Main {
             }
             System.out.println("-----");
         }*/
-
+        } catch (RecognitionException e) {
+            // TODO: 6/8/23 Sistema RecognitionException
+            throw new Error2(e.getMessage());
+        }
     }
 
 

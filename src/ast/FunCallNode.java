@@ -46,11 +46,11 @@ public class FunCallNode implements Node{
 
         for(int i=0; i<this.params.size();i++) {
             if(!this.params.get(i).typeCheck(e).getType().equals(expectedParams.get(i).getType())) {
-                throw new Error2("Errore durante l'invocazione di"+this.id+". Tipo errato per il "+i+1+" parametro.");
+                throw new Error2("Errore durante l'invocazione di "+this.id+". Tipo errato per il "+(i+1)+" parametro.");
             }
 
             if(this.params.get(i).getClass() == IfExpNode.class || this.params.get(i).getClass() == IfStmNode.class) {
-                throw new Error2("Errore durante l'invocazione di"+this.id+". Operatore If Then Else non consentito come parametro.");
+                throw new Error2("Errore durante l'invocazione di "+this.id+". Operatore If Then Else non consentito come parametro.");
             }
         }
 

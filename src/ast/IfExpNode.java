@@ -1,5 +1,6 @@
 package ast;
 
+import others.SimpLanlib;
 import semanticanalysis.*;
 
 import java.util.ArrayList;
@@ -92,7 +93,28 @@ public class IfExpNode implements Node{
     }
 
     @Override
-    public String codeGeneration(Environment localenv) {
-        return null;
-    }
+    public String codeGeneration(Environment e)
+    {
+        String lthen = SimpLanlib.freshLabel();
+        String lend = SimpLanlib.freshLabel();
+
+        String stmThen = "";
+        for(Node stm: innerThenStatements)
+            stmThen = stmThen + stm.codeGeneration(e);
+
+        String stmElse = "";
+        for(Node stm: innerElseStatements)
+            stmElse = stmElse + stm.codeGeneration(e);
+
+
+        return condition.codeGeneration(e) +
+            "storei T1 1 \n" +
+            "beq A0 T1 "+ lthen + "\n" +
+                stmElse +
+                (innerElseExp != null ? innerElseExp.codeGeneration(e) : "") +
+            "b " + lend + "\n" +
+            lthen + ":\n" +
+                stmThen +
+                (innerThenExp != null ? innerThenExp.codeGeneration(e) : "") +
+            lend + ":\n" ;     }
 }

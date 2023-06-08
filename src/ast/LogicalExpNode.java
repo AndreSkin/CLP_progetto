@@ -1,5 +1,6 @@
 package ast;
 
+import others.SimpLanlib;
 import semanticanalysis.Environment;
 import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
@@ -43,7 +44,30 @@ public class LogicalExpNode implements Node{
     }
 
     @Override
-    public String codeGeneration(Environment localenv) {
-        return null;
+    public String codeGeneration(Environment e) {
+        String trueL = SimpLanlib.freshLabel();
+        String lend = SimpLanlib.freshLabel();
+
+        String or="add A0 T1\n" +
+                "popr T1\n" +
+                "BGE T1 1 "+ trueL+"\n";
+
+        String and= "BEQ A0 1" + trueL+"\n"+
+                "BEQ T1 1" + trueL+"\n"+
+                "";
+
+        return e1.codeGeneration(e)+
+                "pushr A0 \n" +
+                e2.codeGeneration(e)+
+                "popr T1 \n" +
+                (op.equals("||") ? or : and) +
+                //false
+                "pushr A0 0\n"+
+                "B"+lend+
+
+                trueL+ ":\n" +
+                "pushr A0 1\n"+
+
+                lend+ ":\n";
     }
 }
