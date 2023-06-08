@@ -1,5 +1,6 @@
 package ast;
 
+import others.SimpLanlib;
 import semanticanalysis.Environment;
 import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
@@ -45,7 +46,34 @@ public class CfrExpNode implements Node{
     }
 
     @Override
-    public String codeGeneration(Environment localenv) {
-        return null;
+    public String codeGeneration(Environment e) {
+
+        String false_lab = SimpLanlib.freshLabel();
+        String end = SimpLanlib.freshLabel();
+
+
+        String command = switch (this.op) {
+            case ">" -> "gt T0 A0\n";
+            case "<" -> "lt T0 A0\n";
+            case ">=" -> "gte T0 A0\n";
+            case "<=" -> "lte T0 A0\n";
+            case "==" -> "eq T0 A0\n";
+            default -> "";
+        };
+
+        // TODO: 6/8/23 Controlla operatori
+
+        return this.e1.codeGeneration(e)+
+                "pushr AO \n"+
+                this.e2.codeGeneration(e)+
+                "popr A0 \n"+
+                command+
+                "storei T0 0\n"+
+                "beq A0 T0 "+false_lab+"\n"+
+                "storei A0 1 \n"+
+                "b " + end + "\n" +
+                false_lab + ":\n"+
+                "storei A0 0 \n"+
+                end + ":\n";
     }
 }

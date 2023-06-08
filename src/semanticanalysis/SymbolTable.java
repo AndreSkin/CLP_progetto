@@ -57,7 +57,7 @@ public class SymbolTable{
 		return result;
 	}
 
-	public int nslookup(String id) {
+	public int nestingLookup(String id) {
 		int n = symbolTable.size()-1;
 		boolean found = false;
 		while (n>-1 && !found) {
@@ -66,7 +66,7 @@ public class SymbolTable{
 				found = true;
 			} else n-=1;
 		}
-		return n;
+		return n+1;
 	}
 
 	/*public void add(String s, SymbolTableEntry st)

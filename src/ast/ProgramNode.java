@@ -48,9 +48,9 @@ import java.util.ArrayList;
         @Override
         public String codeGeneration(Environment e)
         {
-            String declCode="";
+            /*String declCode="";
             for (Node d: declarations)
-                declCode += d.codeGeneration(e);
+                declCode += d.codeGeneration(e);*/
             String stmCode="";
             for (Node s: statements)
                 stmCode += s.codeGeneration(e);
@@ -58,9 +58,9 @@ import java.util.ArrayList;
                     + "pushr FP \n"
                     + "move SP AL \n"
                     + "pushr AL \n"
-                    + declCode
+                    //+ declCode
                     + stmCode
-                    + exp.codeGeneration(e)
+                    + (exp != null ? exp.codeGeneration(e) : "")
                     + "halt\n" +
                     SimpLanlib.getCode();
         }

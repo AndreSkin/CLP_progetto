@@ -1,21 +1,8 @@
-void h(int n){
-  	  int x ; int y ;
-          if (n==0){ x = n+1 ;} else { h(n-1) ; x = n ; y = x ;}
- }
-
-int factorial(int n) {
-   if (n <= 1) {
-     n=1;
-   }
-   n * factorial(n - 1)
-}
-
-
-int result;
 int x;
 int y;
-int z;
-y=3;
-y=y+1;
-h(5) ;
-factorial(7);
+x = 1;
+x = x+2;
+if (x == 2) {
+    y=1;
+}
+x == 1

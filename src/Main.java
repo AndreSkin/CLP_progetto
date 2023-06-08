@@ -1,4 +1,5 @@
 import ast.Node;
+import org.antlr.v4.gui.Interpreter;
 import org.antlr.v4.runtime.*;
 import semanticanalysis.Environment;
 import semanticanalysis.Error2;
@@ -81,6 +82,27 @@ public class Main {
             }
             System.out.println("-----");
         }*/
+            System.out.println("Inizio Generazione di codice intermedio.");
+            String code = ast.codeGeneration(env);
+
+            File f = new File("out/code.asm");
+            if (!f.exists()) {
+                f.createNewFile();
+            } else {
+                f.delete();
+                f.createNewFile();
+            }
+
+            Files.write(Paths.get("out/code.asm"), code.getBytes(), StandardOpenOption.WRITE);
+
+            System.out.println("Codice generato con successo. Output nel file /out/code.asm");
+
+            /*int memsize = 100000;
+            ArrayList<Integer> breakpoints = new ArrayList<Integer>();
+            Interpreter interpreter = new Interpreter("out/code.asm");
+            interpreter.runVM();
+*/
+
         } catch (RecognitionException e) {
             // TODO: 6/8/23 Sistema RecognitionException
             throw new Error2(e.getMessage());

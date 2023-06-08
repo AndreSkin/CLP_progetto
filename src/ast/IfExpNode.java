@@ -111,10 +111,10 @@ public class IfExpNode implements Node{
             "storei T1 1 \n" +
             "beq A0 T1 "+ lthen + "\n" +
                 stmElse +
-                (innerElseExp != null ? innerElseExp.codeGeneration(e) : "") +
+                 innerElseExp.codeGeneration(e) +
             "b " + lend + "\n" +
             lthen + ":\n" +
                 stmThen +
-                (innerThenExp != null ? innerThenExp.codeGeneration(e) : "") +
+               innerThenExp.codeGeneration(e) +
             lend + ":\n" ;     }
 }

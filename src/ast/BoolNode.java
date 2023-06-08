@@ -27,7 +27,7 @@ public class BoolNode implements Node{
     }
 
     @Override
-    public String codeGeneration(Environment localenv) {
-        return null;
+    public String codeGeneration(Environment e) {
+        return "storei AO "+(this.val ? 1 : 0)+"\n";
     }
 }

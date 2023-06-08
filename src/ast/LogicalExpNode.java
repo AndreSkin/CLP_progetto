@@ -53,8 +53,7 @@ public class LogicalExpNode implements Node{
                 "BGE T1 1 "+ trueL+"\n";
 
         String and= "BEQ A0 1" + trueL+"\n"+
-                "BEQ T1 1" + trueL+"\n"+
-                "";
+                "BEQ T1 1" + trueL+"\n";
 
         return e1.codeGeneration(e)+
                 "pushr A0 \n" +

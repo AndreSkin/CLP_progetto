@@ -49,7 +49,8 @@ public class AsgNode implements Node{
     }
 
     @Override
-    public String codeGeneration(Environment localenv) {
-        return null;
+    public String codeGeneration(Environment e) {
+        return exp.codeGeneration(e) +
+                "load A0 "+e.getSymbolTable().lookup(this.id).getOffset()+"(FP)\n" ;
     }
 }

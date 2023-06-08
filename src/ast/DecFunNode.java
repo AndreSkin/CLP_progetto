@@ -1,5 +1,6 @@
 package ast;
 
+import others.SimpLanlib;
 import semanticanalysis.*;
 
 import java.lang.reflect.Array;
@@ -103,21 +104,19 @@ public class DecFunNode implements Node{
     @Override
     public String codeGeneration(Environment e)
     {
-        String declCode = "" ;
-        if (declist.size() != 0) {
-            for (Node dec:declist){
-                declCode = declCode + dec.codeGeneration();
-            }
-        }
+        /*String declCode = "" ;
+
+        String flabel = SimpLanlib.freshFunLabel() ;
+
 
         SimpLanlib.putCode(
                 flabel + ":\n"
                         + "pushr RA \n"
                         + declCode
-                        + body.codeGeneration(e)
-                        + "addi SP " + 	declist.size() + "\n"
+                        + //il resto
+                        + "addi SP " + 	innerDecs.size() + "\n"
                         + "popr RA \n"
-                        + "addi SP " + 	parlist.size() + "\n"
+                        + "addi SP " + 	params.size() + "\n"
                         + "pop \n"
                         + "store FP 0(FP) \n"
                         + "move FP AL \n"
@@ -126,6 +125,7 @@ public class DecFunNode implements Node{
                         + "rsub RA \n"
         );
 
-        return "push "+ flabel +"\n";
+        return "push "+ flabel +"\n";*/
+        return "";
     }
 }
