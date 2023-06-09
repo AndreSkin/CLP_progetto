@@ -9,9 +9,6 @@ import java.util.Stack;
 public class SymbolTable{
 	private Stack<Hashtable<String, SymbolTableEntry>> symbolTable;
 
-	//private ArrayList<Hashtable<String, Hashtable<String, SymbolTableEntry> >> symbolTable;
-
-
 	public SymbolTable() {
 		symbolTable = new Stack<>();
 	}

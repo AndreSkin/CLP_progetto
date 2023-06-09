@@ -194,23 +194,42 @@ public class ExecuteVM {
                 			ip = code[address].getCode() ;
                 	} else ip = ip+2 ;
              	  	break;
-              case SVMParser.BRANCHLESSEQ :
-          			if (read(bytecode.getArg1()) <= read(bytecode.getArg2())){
-          				address = ip+1;
-          				ip = code[address].getCode() ;
-          			} else ip = ip+2 ;
-          			break;
-              case SVMParser.JUMPSUB : 
-            	  	ra = ip+1 ;
-            	  	address = ip ;
-            	  	ip = Integer.parseInt(code[address].getArg1())  ;
-            	  	break;	
-              case SVMParser.RETURNSUB:
-                    ip = read(bytecode.getArg1()) ;
-                    break;
-              case SVMParser.HALT : //to print the result 
-             		System.out.println("\nResult: " + a0 + "\n");
-             		return;          
+			    case SVMParser.BRANCHLESSEQ :
+					if (read(bytecode.getArg1()) <= read(bytecode.getArg2())){
+						address = ip+1;
+						ip = code[address].getCode() ;
+					} else ip = ip+2 ;
+					break;
+				case SVMParser.BRANCHEGT:
+					if (read(bytecode.getArg1()) > read(bytecode.getArg2())){
+						address = ip+1;
+						ip = code[address].getCode() ;
+					} else ip = ip+2 ;
+					break;
+				case SVMParser.BRANCHEQLT:
+					if (read(bytecode.getArg1()) < read(bytecode.getArg2())){
+						address = ip+1;
+						ip = code[address].getCode() ;
+					} else ip = ip+2 ;
+					break;
+				case SVMParser.BRANCHEQGTE:
+					if (read(bytecode.getArg1()) >= read(bytecode.getArg2())){
+						address = ip+1;
+						ip = code[address].getCode() ;
+					} else ip = ip+2 ;
+					break;
+
+			    case SVMParser.JUMPSUB :
+					ra = ip+1 ;
+					address = ip ;
+					ip = Integer.parseInt(code[address].getArg1())  ;
+					break;
+			    case SVMParser.RETURNSUB:
+					ip = read(bytecode.getArg1()) ;
+					break;
+			    case SVMParser.HALT : //to print the result
+					System.out.println("\nResult: " + a0 + "\n");
+					return;
             } 
     	}   	  	
     } 

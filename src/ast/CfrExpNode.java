@@ -48,16 +48,16 @@ public class CfrExpNode implements Node{
     @Override
     public String codeGeneration(Environment e) {
 
-        String false_lab = SimpLanlib.freshLabel();
+        String true_lab = SimpLanlib.freshLabel();
         String end = SimpLanlib.freshLabel();
 
 
         String command = switch (this.op) {
-            case ">" -> "gt T0 A0\n";
-            case "<" -> "lt T0 A0\n";
-            case ">=" -> "gte T0 A0\n";
-            case "<=" -> "lte T0 A0\n";
-            case "==" -> "eq T0 A0\n";
+            case ">" -> "bgt T0 A0 "+true_lab+"\n";
+            case "<" -> "blt T0 A0 "+true_lab+"\n";
+            case ">=" -> "bgte T0 A0 "+true_lab+"\n";
+            case "<=" -> "bleq T0 A0 "+true_lab+"\n";
+            case "==" -> "beq T0 A0 "+true_lab+"\n";
             default -> "";
         };
 
@@ -66,14 +66,12 @@ public class CfrExpNode implements Node{
         return this.e1.codeGeneration(e)+
                 "pushr A0 \n"+
                 this.e2.codeGeneration(e)+
-                "popr A0 \n"+
+                "popr T0 \n"+
                 command+
-                "storei T0 0\n"+
-                "beq A0 T0 "+false_lab+"\n"+
-                "storei A0 1 \n"+
-                "b " + end + "\n" +
-                false_lab + ":\n"+
                 "storei A0 0 \n"+
+                "b " + end + "\n" +
+                true_lab + ":\n"+
+                "storei A0 1 \n"+
                 end + ":\n";
     }
 }

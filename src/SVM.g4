@@ -38,6 +38,9 @@ instruction:
     	| RETURNSUB REG
     	| l=LABEL ':'
  	  	| HALT
+ 	  	| BRANCHEGT
+        | BRANCHEQLT
+        | BRANCHEQGTE
 	  ) ;
  	 
 /*------------------------------------------------------------------
@@ -65,7 +68,10 @@ BRANCHEQ :'beq' 	;
 BRANCHLESSEQ:'bleq' ;
 JUMPSUB	 : 'jsub' 	;
 RETURNSUB: 'rsub'	;
-HALT	 : 'halt' ;	
+HALT	 : 'halt' ;
+BRANCHEGT : 'bgt';
+BRANCHEQLT : 'blt';
+BRANCHEQGTE : 'bgte';
 
 REG 	 : 'A0' | 'RA' | 'FP' | 'SP' | 'AL' | 'T0' | 'T1' ;
 LABEL	 : ('a'..'z'|'A'..'Z')('a'..'z' | 'A'..'Z' | '0'..'9')* ;

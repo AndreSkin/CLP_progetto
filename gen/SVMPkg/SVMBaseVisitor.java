@@ -1,4 +1,7 @@
-package SVMPkg;// Generated from /home/alessio/Projects/CLP_progetto/src/SVM.g4 by ANTLR 4.12.0
+// Generated from /home/alessio/Projects/CLP_progetto/src/SVM.g4 by ANTLR 4.12.0
+package SVMPkg;
+
+import java.util.HashMap;
 
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 

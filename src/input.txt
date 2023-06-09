@@ -1,6 +1,9 @@
-int x ;
-int f(int n, int m){
-	if (n == 0) { n }
-	else { m+1 }
+int u ;
+int f(int n){
+        int y ;
+	y = 1 ;
+	if (n == 0) { y }
+	else { y = f(n-1) ; y*n }
 }
-f(10,3)
+u = 6 ;
+f(u)

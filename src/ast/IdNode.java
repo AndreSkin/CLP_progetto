@@ -15,8 +15,6 @@ public class IdNode implements Node{
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         System.out.println(this.id);
 
-
-
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
         s= e.getSymbolTable().lookup(this.id);
         if (s==null)
