@@ -34,13 +34,14 @@ public class AsgNode implements Node{
         if (st == null) {
             throw new Error();
         }
-        if(!st.getType().getType().equals(this.exp.typeCheck(e).getType())){
+        TypeNode expNode = this.exp.typeCheck(e);
+        if(!st.getType().getType().equals(expNode.getType())){
             throw new Error2("Errore di TypeChecking: Espressioni incompatibili durante l'assegnamento.");
         }
         //Controllo se assegno una funzione?
 
         e.getSymbolTable().lookup(id).setInitialized();
-        return exp.typeCheck(e);
+        return expNode;
     }
 
     @Override
@@ -50,7 +51,17 @@ public class AsgNode implements Node{
 
     @Override
     public String codeGeneration(Environment e) {
+
+        String getAR="";
+        for (int i = 0; i < e.getNestingLevel() - e.getSymbolTable().nestingLookup(id); i++)
+            getAR += "store T1 0(T1) \n";
+
+
         return exp.codeGeneration(e) +
-                "load A0 "+e.getSymbolTable().lookup(this.id).getOffset()+"(FP)\n" ;
+                "move AL T1 \n"
+                + getAR  //risalgo la catena statica
+                + "subi T1 " + e.getSymbolTable().lookup(id).getOffset() + "\n" //metto offset sullo stack
+                + "load A0 0(T1) \n"
+                + "pushr A0 \n";
     }
 }

@@ -109,6 +109,8 @@ public class DecFunNode implements Node{
     public String codeGeneration(Environment e)
     {
 
+        System.out.println(this.id);
+
         int paramSpace = this.params.size();
 
         String innerStmCode = "";

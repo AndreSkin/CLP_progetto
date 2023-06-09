@@ -102,13 +102,6 @@ public class Main {
 
 
             String fileName = "out/code";
-
-            String codice=ast.codeGeneration(env);
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm"));
-            out.write(codice);
-            out.close();
-            System.out.println("Code generated! Assembling and running generated code.");
-
             FileInputStream isASM = new FileInputStream(fileName+".asm");
             ANTLRInputStream inputASM = new ANTLRInputStream(isASM);
             SVMLexer lexerASM = new SVMLexer(inputASM);

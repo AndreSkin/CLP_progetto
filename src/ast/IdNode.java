@@ -44,15 +44,15 @@ public class IdNode implements Node{
     public String codeGeneration(Environment e) {
 
         // TODO: 6/8/23 Controlla offset e inserimento della variabile, non viene fatto
-        
+
         String getAR="";
-        for (int i=0; i < e.getNestingLevel() - e.getSymbolTable().nestingLookup(id); i++)
+        for (int i = 0; i < e.getNestingLevel() - e.getSymbolTable().nestingLookup(id); i++)
             getAR += "store T1 0(T1) \n";
-        return
-                "move AL T1 \n"
-                        + getAR  //risalgo la catena statica
-                        + "subi T1 " + e.getSymbolTable().lookup(id).getOffset() +"\n" //metto offset sullo stack
-                        + "store A0 0(T1) \n" ; //carico sullo stack il valore all'indirizzo ottenuto
+
+        return  "move AL T1 \n"
+                + getAR  //risalgo la catena statica
+                + "subi T1 " + e.getSymbolTable().lookup(id).getOffset() + "\n" //metto offset sullo stack
+                + "store A0 0(T1) \n"; //carico sullo stack il valore all'indirizzo ottenuto
     }
 
     public String getId() {

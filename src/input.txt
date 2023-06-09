@@ -1,5 +1,6 @@
-void h(int n){
-  	  int x ; int y ;
-          if (n==0){ x = n+1 ;} else { h(n-1) ; x = n ; y = x ;}
-     }
-     h(5) ;
+int x;
+int y;
+x=2;
+y=21;
+x=x+1;
+x

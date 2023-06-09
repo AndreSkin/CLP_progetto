@@ -48,13 +48,14 @@ import java.util.ArrayList;
         @Override
         public String codeGeneration(Environment e)
         {
-            /*String declCode="";
+
             for (Node d: declarations)
-                declCode += d.codeGeneration(e);*/
+                d.codeGeneration(e);
+
             String stmCode="";
             for (Node s: statements)
                 stmCode += s.codeGeneration(e);
-            return  "move SP FP  \n"
+            return  "move SP FP \n"
                     + "pushr FP \n"
                     + "move SP AL \n"
                     + "pushr AL \n"
