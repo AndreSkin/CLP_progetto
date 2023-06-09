@@ -17,8 +17,6 @@ import java.io.FileWriter;
 import SVMPkg.*;
 
 public class Main {
-    public Main() throws IOException {
-    }
 
     public static void main(String[] args) throws IOException {
     	

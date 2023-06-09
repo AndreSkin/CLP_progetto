@@ -14,6 +14,7 @@ public class DecFunNode implements Node{
     private ArrayList<Node> innerStatements;
     private Node innerExp;
     private Environment env;
+    private String flabel;
 
     public DecFunNode(Node type, String id, ArrayList<Node> params, ArrayList<Node> innerDecs, ArrayList<Node> innerStatements, Node innerExp) {
         this.type = (TypeNode) type;
@@ -42,7 +43,10 @@ public class DecFunNode implements Node{
 
         TypeNode function = new TypeNode(this.type.getType(), paramsList);
         // TODO: 6/7/23 Offset va bene?
-        st.insert(this.id, function,-1);
+        this.flabel = SimpLanlib.freshFunLabel() ;
+
+
+        st.insert(this.id, function,-1, this.flabel);
         //Analizzo dentro
         this.env = new Environment();
 
@@ -104,19 +108,28 @@ public class DecFunNode implements Node{
     @Override
     public String codeGeneration(Environment e)
     {
-        /*String declCode = "" ;
 
-        String flabel = SimpLanlib.freshFunLabel() ;
+        int paramSpace = this.params.size();
+
+        String innerStmCode = "";
+        if (innerStatements != null)
+            for(Node innerS: this.innerStatements)
+                innerStmCode += innerS.codeGeneration(this.env);
+
+        String innerExpCode = "";
+        if (innerExp != null)
+            innerExpCode += innerExp.codeGeneration(this.env);
+
 
 
         SimpLanlib.putCode(
                 flabel + ":\n"
                         + "pushr RA \n"
-                        + declCode
-                        + //il resto
+                        + innerStmCode
+                        + innerExpCode
                         + "addi SP " + 	innerDecs.size() + "\n"
                         + "popr RA \n"
-                        + "addi SP " + 	params.size() + "\n"
+                        + "addi SP " + 	paramSpace + "\n"
                         + "pop \n"
                         + "store FP 0(FP) \n"
                         + "move FP AL \n"
@@ -125,7 +138,6 @@ public class DecFunNode implements Node{
                         + "rsub RA \n"
         );
 
-        return "push "+ flabel +"\n";*/
-        return "";
+        return "push "+ flabel +"\n";
     }
 }

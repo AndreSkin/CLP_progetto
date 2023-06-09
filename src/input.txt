@@ -1,17 +1,5 @@
-int x;
-bool k ;
-
-x=4;
-x=x+3;
-
-k = true;
-k = !k;
-
-/*
-int x;
-int y;
-int z;
-
-x=3;
-y=4;
-z = x+y;*/
+void h(int n){
+  	  int x ; int y ;
+          if (n==0){ x = n+1 ;} else { h(n-1) ; x = n ; y = x ;}
+     }
+     h(5) ;

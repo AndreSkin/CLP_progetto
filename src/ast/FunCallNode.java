@@ -63,7 +63,27 @@ public class FunCallNode implements Node{
     }
 
     @Override
-    public String codeGeneration(Environment localenv) {
-        return null;
+    public String codeGeneration(Environment e) {
+        // TODO: 6/9/23  Non credo serva? i parametri non generano codice
+        /*String parCode="";
+        for (int i = 0; i < parameters.size() ; i = i+1)
+            parCode += parameters.get(i).codeGeneration() + "pushr A0\n" ;*/
+
+        String getAR="";
+
+        for (int i=0; i < e.getNestingLevel() - e.getSymbolTable().nestingLookup(this.id) ; i++)
+            getAR+="store T1 0(T1) \n";
+        // formato AR: control_link + access link + parameters + indirizzo di ritorno + dich_locali
+
+        return  "pushr FP \n"			// carico il frame pointer
+                + "move SP FP \n"
+                + "addi FP 1 \n"	// salvo in FP il puntatore all'indirizzo del frame pointer caricato
+                + "move AL T1\n"		// risalgo la catena statica
+                + getAR
+                + "pushr T1 \n"			// salvo sulla pila l'access link statico
+                //+ parCode 				// calcolo i parametri attuali con l'access link del chiamante
+                + "move FP AL \n"
+                + "subi AL 1 \n"
+                + "jsub " + e.getSymbolTable().lookup(id).getLabel() + "\n" ;
     }
 }

@@ -88,6 +88,14 @@ public class SymbolTable{
 		symbolTable.push(x);
 	}
 
+	public void insert(String id, TypeNode type, int offset, String label) {
+		Hashtable<String, SymbolTableEntry> x = symbolTable.pop();
+		SymbolTableEntry st = new SymbolTableEntry(label, type, Status.DECLARED, offset);
+		x.put(id, st);
+		symbolTable.push(x);
+	}
+
+
 
 	public void enterInNewBlock() {
 		this.symbolTable.push(new Hashtable<String, SymbolTableEntry>());
