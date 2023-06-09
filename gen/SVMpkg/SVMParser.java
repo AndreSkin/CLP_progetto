@@ -1,15 +1,10 @@
-// Generated from C:/Users/schin/Desktop/UNI/CLP/CLP_progetto/src\SVM.g4 by ANTLR 4.12.0
-
-import java.util.HashMap;
+package SVMpkg;// Generated from C:/Users/schin/Desktop/UNI/CLP/CLP_progetto/src\SVM.g4 by ANTLR 4.12.0
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class SVMParser extends Parser {
