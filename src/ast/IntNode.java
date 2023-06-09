@@ -28,6 +28,6 @@ public class IntNode implements Node{
 
     @Override
     public String codeGeneration(Environment e) {
-        return "storei AO "+this.val+"\n";
+        return "storei A0 "+this.val+"\n";
     }
 }
