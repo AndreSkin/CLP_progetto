@@ -7,3 +7,10 @@ x=x+3;
 k = true;
 k = ! k;*/
 
+int x;
+int y;
+int z;
+
+x=3;
+y=4;
+z = x+y;

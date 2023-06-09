@@ -1,20 +1,31 @@
+import SVMpkg.SVMLexer;
+import SVMpkg.SVMParser;
 import ast.Node;
-import org.antlr.v4.gui.Interpreter;
+import interpreter.ExecuteVM;
 import org.antlr.v4.runtime.*;
 import semanticanalysis.Environment;
 import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
-import semanticanalysis.SymbolTable;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+
+import SVMpkg.*;
+import ast.*;
+import interpreter.*;
+import others.*;
+import semanticanalysis.*;
 
 public class Main {
+    public Main() throws IOException {
+    }
+
     public static void main(String[] args) throws IOException {
     	
     	//Exercise 1
@@ -97,6 +108,36 @@ public class Main {
 
             System.out.println("Codice generato con successo. Output nel file /out/code.asm");
 
+
+            String fileName = "out/code";
+
+            String codice=ast.codeGeneration(env);
+            BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm"));
+            out.write(codice);
+            out.close();
+            System.out.println("Code generated! Assembling and running generated code.");
+
+            FileInputStream isASM = new FileInputStream(fileName+".asm");
+            ANTLRInputStream inputASM = new ANTLRInputStream(isASM);
+            SVMLexer lexerASM = new SVMLexer(inputASM);
+            CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
+            SVMParser parserASM = new SVMParser(tokensASM);
+
+            //parserASM.assembly();
+
+            SVMVisitorImpl visitorSVM = new SVMVisitorImpl();
+            visitorSVM.visit(parserASM.assembly());
+
+            //System.out.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.");
+            //if (lexerASM.lexicalErrors>0 || parserASM.getNumberOfSyntaxErrors()>0) System.exit(1);
+
+            System.out.println("Starting Virtual Machine...");
+            ExecuteVM vm = new ExecuteVM(visitorSVM.code);
+            vm.cpu();
+
+
+
+
             /*int memsize = 100000;
             ArrayList<Integer> breakpoints = new ArrayList<Integer>();
             Interpreter interpreter = new Interpreter("out/code.asm");
@@ -107,9 +148,9 @@ public class Main {
             // TODO: 6/8/23 Sistema RecognitionException
             throw new Error2(e.getMessage());
         }
+
+
     }
-
-
 
 
 }

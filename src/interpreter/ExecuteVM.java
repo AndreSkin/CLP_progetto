@@ -1,6 +1,6 @@
 package interpreter;
 
-import parser.SVMParser;
+import SVMpkg.*;
 
 public class ExecuteVM {
     
