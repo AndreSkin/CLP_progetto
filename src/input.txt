@@ -1,6 +1,6 @@
-int x;
-int y;
-x=2;
-y=21;
-x=x+1;
-x
+int x ;
+int f(int n, int m){
+	if (n == 0) { n }
+	else { m+1 }
+}
+f(10,3)

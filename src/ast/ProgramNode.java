@@ -48,9 +48,9 @@ import java.util.ArrayList;
         @Override
         public String codeGeneration(Environment e)
         {
-
+            String decCode="";
             for (Node d: declarations)
-                d.codeGeneration(e);
+                decCode += d.codeGeneration(e);
 
             String stmCode="";
             for (Node s: statements)
@@ -59,7 +59,7 @@ import java.util.ArrayList;
                     + "pushr FP \n"
                     + "move SP AL \n"
                     + "pushr AL \n"
-                    //+ declCode
+                    + decCode
                     + stmCode
                     + (exp != null ? exp.codeGeneration(e) : "")
                     + "halt\n" +

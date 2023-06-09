@@ -6,15 +6,19 @@ import java.util.ArrayList;
 
 public class IdNode implements Node{
     private String id;
-
+    SymbolTableEntry s;
     public IdNode(String id) {
         this.id = id;
     }
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
+        System.out.println(this.id);
+
+
+
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
-        SymbolTableEntry s= e.getSymbolTable().lookup(this.id);
+        s= e.getSymbolTable().lookup(this.id);
         if (s==null)
             result.add(new SemanticError("Variabile "+this.id+" non dichiarata."));
         return result;
@@ -22,7 +26,7 @@ public class IdNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error{
-        SymbolTableEntry s= e.getSymbolTable().lookup(this.id);
+        SymbolTableEntry s = e.getSymbolTable().lookup(this.id);
         if(s == null) {
             //non dichiarata
             throw new Error2("Errore di TypeChecking: Variabile "+this.id+" non dichiarata.");

@@ -70,11 +70,13 @@ public class Main {
             }
             System.out.println("Analisi Semantica completata con successo.");
 
+            boolean isCgen =  true;
 
-            System.out.println("Inizio Type Checking");
-            ast.typeCheck(env);
-            System.out.println("Type Checking completato con successo.");
-
+            if(!isCgen) {
+                System.out.println("Inizio Type Checking");
+                ast.typeCheck(env);
+                System.out.println("Type Checking completato con successo.");
+            }
         /*
         Codice per debug Offset
         SymbolTable st = env.getSymbolTable();
@@ -117,9 +119,9 @@ public class Main {
             //if (lexerASM.lexicalErrors>0 || parserASM.getNumberOfSyntaxErrors()>0) System.exit(1);
 
             System.out.println("Starting Virtual Machine...");
-            ExecuteVM vm = new ExecuteVM(visitorSVM.code);
+          /*  ExecuteVM vm = new ExecuteVM(visitorSVM.code);
             vm.cpu();
-
+*/
 
 
 

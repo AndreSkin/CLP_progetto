@@ -2,12 +2,16 @@ package semanticanalysis;
 
 import ast.TypeNode;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Stack;
 
 public class SymbolTable{
 	private Stack<Hashtable<String, SymbolTableEntry>> symbolTable;
-	
+
+	//private ArrayList<Hashtable<String, Hashtable<String, SymbolTableEntry> >> symbolTable;
+
+
 	public SymbolTable() {
 		symbolTable = new Stack<>();
 	}

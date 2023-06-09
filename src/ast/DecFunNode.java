@@ -13,7 +13,6 @@ public class DecFunNode implements Node{
     private ArrayList<Node> innerDecs;
     private ArrayList<Node> innerStatements;
     private Node innerExp;
-    private Environment env;
     private String flabel;
 
     public DecFunNode(Node type, String id, ArrayList<Node> params, ArrayList<Node> innerDecs, ArrayList<Node> innerStatements, Node innerExp) {
@@ -33,6 +32,7 @@ public class DecFunNode implements Node{
             results.add(new SemanticError("Identificatore della funzione già presente nel blocco corrente."));
             return results;
         }
+
         ArrayList<TypeNode> paramsList = new ArrayList<>();
         if(this.params != null) {
             for(Node p: this.params) {
@@ -48,27 +48,29 @@ public class DecFunNode implements Node{
 
         st.insert(this.id, function,-1, this.flabel);
         //Analizzo dentro
-        this.env = new Environment();
+        e.enterInNewBlock();
 
-        this.env.getSymbolTable().enterInNewBlock();
+
 // TODO: 6/7/23 Controlla se ti servono le label qui e se devi incrementare l'offset per il return value
-        this.env.getSymbolTable().insert(this.id, function, -1);
+        //this.env.getSymbolTable().insert(this.id, function, -1);
 
         for(Node arg: params) {
-            results.addAll(arg.checkSemantics(this.env));
+            results.addAll(arg.checkSemantics(e));
         }
 
         for(Node dec: innerDecs) {
-            results.addAll(dec.checkSemantics(this.env));
+            results.addAll(dec.checkSemantics(e));
         }
 
         for(Node stm: innerStatements) {
-            results.addAll(stm.checkSemantics(this.env));
+            results.addAll(stm.checkSemantics(e));
         }
 
         if(innerExp != null)
-            results.addAll(innerExp.checkSemantics(this.env));
+            results.addAll(innerExp.checkSemantics(e));
 
+
+        e.exitFromBlock();
         return results;
     }
 
@@ -76,13 +78,13 @@ public class DecFunNode implements Node{
     public TypeNode typeCheck(Environment e) throws Error {
         if (innerDecs != null)
             for(Node innerD: this.innerDecs)
-                innerD.typeCheck(this.env);
+                innerD.typeCheck(e);
         if (innerStatements != null)
             for(Node innerS: this.innerStatements)
-                innerS.typeCheck(this.env);
+                innerS.typeCheck(e);
 
         if (innerExp != null) {
-            TypeNode returnType = innerExp.typeCheck(this.env);
+            TypeNode returnType = innerExp.typeCheck(e);
             if (!returnType.getType().equals(this.type.getType()))
                 throw new Error2("Errore di TypeChecking: Tipo di ritorno della funzione diverso dal tipo atteso.");
         }
@@ -116,11 +118,11 @@ public class DecFunNode implements Node{
         String innerStmCode = "";
         if (innerStatements != null)
             for(Node innerS: this.innerStatements)
-                innerStmCode += innerS.codeGeneration(this.env);
+                innerStmCode += innerS.codeGeneration(e);
 
         String innerExpCode = "";
         if (innerExp != null)
-            innerExpCode += innerExp.codeGeneration(this.env);
+            innerExpCode += innerExp.codeGeneration(e);
 
 
 
@@ -139,6 +141,7 @@ public class DecFunNode implements Node{
                         + "pop \n"
                         + "rsub RA \n"
         );
+        System.out.println(this.id);
 
         return "push "+ flabel +"\n";
     }
