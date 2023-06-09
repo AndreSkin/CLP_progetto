@@ -1,4 +1,4 @@
-package SVMpkg;// Generated from C:/Users/schin/Desktop/UNI/CLP/CLP_progetto/src\SVM.g4 by ANTLR 4.12.0
+package SVMPkg;// Generated from /home/alessio/Projects/CLP_progetto/src/SVM.g4 by ANTLR 4.12.0
 
 
 import org.antlr.v4.runtime.ParserRuleContext;

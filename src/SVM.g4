@@ -67,7 +67,7 @@ JUMPSUB	 : 'jsub' 	;
 RETURNSUB: 'rsub'	;
 HALT	 : 'halt' ;	
 
-REG 	 : 'A0' | 'RA' | 'FP' | 'SP' | 'AL' | 'T1' | 'T2' ;
+REG 	 : 'A0' | 'RA' | 'FP' | 'SP' | 'AL' | 'T0' | 'T1' ;
 LABEL	 : ('a'..'z'|'A'..'Z')('a'..'z' | 'A'..'Z' | '0'..'9')* ;
 NUMBER	 : '0' | ('-')?(('1'..'9')('0'..'9')*) ;
 

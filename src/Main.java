@@ -1,5 +1,3 @@
-import SVMpkg.SVMLexer;
-import SVMpkg.SVMParser;
 import ast.Node;
 import interpreter.ExecuteVM;
 import org.antlr.v4.runtime.*;
@@ -16,11 +14,7 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 
-import SVMpkg.*;
-import ast.*;
-import interpreter.*;
-import others.*;
-import semanticanalysis.*;
+import SVMPkg.*;
 
 public class Main {
     public Main() throws IOException {

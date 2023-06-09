@@ -1,13 +1,13 @@
-package ast;
-
+import SVMPkg.SVMBaseVisitor;
+import SVMPkg.SVMLexer;
+import SVMPkg.SVMParser;
 import interpreter.AssemblyClass;
 import interpreter.ExecuteVM;
-import SVMpkg.*;
 
 import java.util.HashMap;
 
 
-public class SVMVisitorImpl extends SVMBaseVisitor<Void> {	
+public class SVMVisitorImpl extends SVMBaseVisitor<Void> {
 	
     public AssemblyClass[] code = new AssemblyClass[ExecuteVM.CODESIZE];    
     private int i = 0;
@@ -16,7 +16,7 @@ public class SVMVisitorImpl extends SVMBaseVisitor<Void> {
     private HashMap<Integer,String> labelRef = new HashMap<Integer,String>();
     	// definisce l'insieme di linee di codice che contengono una certa etichetta
     
-    public Void visitAssembly(SVMParser.AssemblyContext ctx) { 
+    public Void visitAssembly(SVMParser.AssemblyContext ctx) {
     		visitChildren(ctx);
      		
     		//printlabeladd() ; 			// checks

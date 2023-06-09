@@ -1,6 +1,6 @@
 package interpreter;
 
-import SVMpkg.*;
+import SVMPkg.*;
 
 public class ExecuteVM {
     
