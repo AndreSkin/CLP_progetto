@@ -70,7 +70,7 @@ public class DecFunNode implements Node{
             results.addAll(innerExp.checkSemantics(e));
 
 
-        //e.exitFromBlock();
+        e.exitFromBlock();
         return results;
     }
 

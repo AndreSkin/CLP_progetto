@@ -1,29 +1,35 @@
 package semanticanalysis;
 
+import java.util.ArrayList;
+
 public class Environment{
     private SymbolTable symbolTable;
-    private int offset;
+    private ArrayList<Integer> offset = new ArrayList<>();
 
     public Environment() {
         this.symbolTable = new SymbolTable();
-        this.offset = 0;
+        offset = new ArrayList<Integer>() ;
+        offset.add(1);
     }
 
     public Environment(Environment from) {
         this.symbolTable = new SymbolTable(from.getSymbolTable().getSymbolTable());
-        this.offset = from.getOffset();
+        offset = new ArrayList<Integer>() ;
+        for(int i:from.getOffsetArray())
+            offset.add(i);
+    }
+
+    public ArrayList<Integer> getOffsetArray() {
+        return this.offset;
     }
 
     public int getOffset() {
-        return offset;
+        return this.offset.get(this.offset.size()-1);
     }
 
-    public void setOffset(int of) {
-        this.offset = of;
-    }
 
     public void incrementOffset() {
-        this.offset+=1;
+        this.offset.set(this.offset.size()-1, this.offset.get(this.offset.size()-1)+1);
     }
 
     public SymbolTable getSymbolTable() {
@@ -34,10 +40,14 @@ public class Environment{
         this.symbolTable = st;
     }
 
-    public void enterInNewBlock() {this.symbolTable.enterInNewBlock();}
+    public void enterInNewBlock() {
+        this.symbolTable.enterInNewBlock();
+        this.offset.add(1);
+    }
 
     public void exitFromBlock() {
         this.symbolTable.exitFromBlock();
+        this.offset.remove(this.offset.size()-1);
     }
 
 

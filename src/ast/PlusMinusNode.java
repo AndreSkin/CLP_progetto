@@ -50,7 +50,7 @@ public class PlusMinusNode implements Node{
             "pushr A0 \n" +
             e2.codeGeneration(e)+
             "popr T1 \n" +
-            (op.equals("+") ? "add A0 T1 \n" : "sub A0 T1 \n") +
+            (op.equals("+") ? "add T1 A0 \n" : "sub T1 A0 \n") +
             "popr A0 \n" ;
     }
 }

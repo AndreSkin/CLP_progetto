@@ -65,9 +65,9 @@ public class FunCallNode implements Node{
     @Override
     public String codeGeneration(Environment e) {
         // TODO: 6/9/23  Non credo serva? i parametri non generano codice
-        /*String parCode="";
-        for (int i = 0; i < parameters.size() ; i = i+1)
-            parCode += parameters.get(i).codeGeneration() + "pushr A0\n" ;*/
+        String parCode="";
+        for (int i = 0; i < this.params.size() ; i = i+1)
+            parCode += this.params.get(i).codeGeneration(e) + "pushr A0\n" ;
 
         String getAR="";
 
@@ -81,7 +81,7 @@ public class FunCallNode implements Node{
                 + "move AL T1\n"		// risalgo la catena statica
                 + getAR
                 + "pushr T1 \n"			// salvo sulla pila l'access link statico
-                //+ parCode 				// calcolo i parametri attuali con l'access link del chiamante
+                + parCode 				// calcolo i parametri attuali con l'access link del chiamante
                 + "move FP AL \n"
                 + "subi AL 1 \n"
                 + "jsub " + e.getSymbolTable().lookup(id).getLabel() + "\n" ;

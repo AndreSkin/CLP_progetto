@@ -12,6 +12,9 @@ public class AsgNode implements Node{
     private String id;
     private Node exp;
 
+    SymbolTableEntry st;
+    private int nesting;
+
     public AsgNode(String id, Node exp) {
         this.id = id;
         this.exp = exp;
@@ -19,7 +22,8 @@ public class AsgNode implements Node{
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> res = new ArrayList<SemanticError>();
-        SymbolTableEntry st = e.getSymbolTable().lookup(id);
+        st = e.getSymbolTable().lookup(id);
+        nesting = e.getSymbolTable().nestingLookup(id);
         if(st == null){
             throw new Error2("Variabile "+this.id+" non dichiarata nell'ambiente corrente.");
         } else if(this.exp != null) {
@@ -53,14 +57,14 @@ public class AsgNode implements Node{
     public String codeGeneration(Environment e) {
 
         String getAR="";
-        for (int i = 0; i < e.getNestingLevel() - e.getSymbolTable().nestingLookup(id); i++)
+        for (int i = 0; i < e.getNestingLevel() - nesting; i++)
             getAR += "store T1 0(T1) \n";
 
 
         return exp.codeGeneration(e) +
                 "move AL T1 \n"
                 + getAR  //risalgo la catena statica
-                + "subi T1 " + e.getSymbolTable().lookup(id).getOffset() + "\n" //metto offset sullo stack
+                + "subi T1 " + st.getOffset() + "\n" //metto offset sullo stack
                 + "load A0 0(T1) \n"
                 + "pushr A0 \n";
     }
