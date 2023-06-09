@@ -64,7 +64,7 @@ public class CfrExpNode implements Node{
         // TODO: 6/8/23 Controlla operatori
 
         return this.e1.codeGeneration(e)+
-                "pushr AO \n"+
+                "pushr A0 \n"+
                 this.e2.codeGeneration(e)+
                 "popr A0 \n"+
                 command+

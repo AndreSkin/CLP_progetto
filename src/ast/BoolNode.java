@@ -28,6 +28,6 @@ public class BoolNode implements Node{
 
     @Override
     public String codeGeneration(Environment e) {
-        return "storei AO "+(this.val ? 1 : 0)+"\n";
+        return "storei A0 "+(this.val ? 1 : 0)+"\n";
     }
 }

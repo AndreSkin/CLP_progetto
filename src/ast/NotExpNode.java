@@ -14,12 +14,15 @@ public class NotExpNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
-        return null;
+        ArrayList<SemanticError> res = new ArrayList<SemanticError>();
+        res.addAll(this.exp.checkSemantics(e));
+        return res;
     }
 
     @Override
     public TypeNode typeCheck(Environment e) {
-        if(exp.typeCheck(e).getType() != "bool"){
+        System.out.println(exp.typeCheck(e).getType());
+        if(!exp.typeCheck(e).getType().equals("bool")){
             throw new Error2("Errore di TypeChecking: Operatore non booleano.");
         }
         return new TypeNode("bool");
@@ -35,6 +38,6 @@ public class NotExpNode implements Node{
         return this.exp.codeGeneration(e)
         + "storei T0 1"
         + "sub T0 A0"
-        + "popr AO";
+        + "popr A0";
     }
 }

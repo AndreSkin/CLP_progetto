@@ -43,7 +43,7 @@ public class IdNode implements Node{
     @Override
     public String codeGeneration(Environment e) {
 
-        // TODO: 6/8/23 Controlla offset
+        // TODO: 6/8/23 Controlla offset e inserimento della variabile, non viene fatto
         
         String getAR="";
         for (int i=0; i < e.getNestingLevel() - e.getSymbolTable().nestingLookup(id); i++)

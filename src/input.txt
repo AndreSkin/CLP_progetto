@@ -1,16 +1,17 @@
-/*int x;
+int x;
 bool k ;
 
 x=4;
 x=x+3;
 
 k = true;
-k = ! k;*/
+k = !k;
 
+/*
 int x;
 int y;
 int z;
 
 x=3;
 y=4;
-z = x+y;
+z = x+y;*/
