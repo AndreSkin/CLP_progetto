@@ -38,9 +38,9 @@ instruction:
     	| RETURNSUB REG
     	| l=LABEL ':'
  	  	| HALT
- 	  	| BRANCHEGT
-        | BRANCHEQLT
-        | BRANCHEQGTE
+ 	  	| BRANCHEGT REG REG LABEL
+        | BRANCHEQLT REG REG LABEL
+        | BRANCHEQGTE REG REG LABEL
 	  ) ;
  	 
 /*------------------------------------------------------------------

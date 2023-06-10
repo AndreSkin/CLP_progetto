@@ -195,6 +195,7 @@ public class ExecuteVM {
                 	} else ip = ip+2 ;
              	  	break;
 			    case SVMParser.BRANCHLESSEQ :
+					System.out.println(read(bytecode.getArg1()) + ">" + read(bytecode.getArg2()));
 					if (read(bytecode.getArg1()) <= read(bytecode.getArg2())){
 						address = ip+1;
 						ip = code[address].getCode() ;
