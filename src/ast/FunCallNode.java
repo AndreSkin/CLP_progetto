@@ -24,17 +24,18 @@ public class FunCallNode implements Node{
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> results = new ArrayList<SemanticError>();
-        st = e.getSymbolTable().lookup(this.id);
 
-        nesting = e.getNestingLevel();
         nestingNode = e.getSymbolTable().nestingLookup(this.id);
-        //System.out.println(this.id+": "+nesting+", "+nestingNode);
-        if (st == null)
+        nesting = e.getNestingLevel();
+        System.out.println(this.id+": "+nesting+", "+nestingNode);
+        if (e.getSymbolTable().lookup(id) == null)
             results.add(new SemanticError("Funzione " + this.id + " non dichiarata."));
-        else
+        else {
+            st = e.getSymbolTable().lookup(this.id);
             if (this.params != null)
                 for (Node par : params)
                     results.addAll(par.checkSemantics(e));
+        }
         return results;
     }
 
@@ -93,6 +94,8 @@ public class FunCallNode implements Node{
                 + parCode 				// calcolo i parametri attuali con l'access link del chiamante
                 + "move FP AL \n"
                 + "subi AL 1 \n"
-                + "jsub " + e.getSymbolTable().lookup(id).getLabel() + "\n" ;
+                + "jsub " + st.getLabel() + "\n" ;
     }
 }
+// TODO: 6/10/23 riga 95 non so se ha senso
+//(1+ params.size())
