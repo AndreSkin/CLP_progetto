@@ -47,6 +47,8 @@ public class DecFunNode implements Node{
         // TODO: 6/7/23 Offset va bene?
         this.flabel = SimpLanlib.freshFunLabel() ;
 
+       // System.out.println("Dichiaro "+this.id+" e mi trovo a nesting "+e.getSymbolTable().nesting());
+
         e.getSymbolTable().insert(this.id, function,-1, this.flabel);
 
         st = e.getSymbolTable();

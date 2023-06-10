@@ -1,9 +1,7 @@
 int u ;
-int f(int n){
-        int y ;
-	y = 1 ;
-	if (n == 0) { y }
-	else { y = f(n-1) ; y*n }
+void f(int m, int n){
+    int x ;
+	if (m>n) { u = m+n ;}
+	else {  x = 1 ; f(m+1,n+1) ; }
 }
-u = 6 ;
-f(u)
+f(5,4) ; u

@@ -20,7 +20,7 @@ public class DecNode implements Node {
         if (e.getSymbolTable().topLookup(id) != null)
             errors.add(new SemanticError("Variabile " + id + " già dichiarata nel blocco corrente."));
         else {
-            System.out.println("ID: "+id+"; OFFSET: "+e.getOffset());
+            //System.out.println("ID: "+id+"; OFFSET: "+e.getOffset());
 
             e.getSymbolTable().insert(id, type, e.getOffset()) ;
             e.incrementOffset();

@@ -68,24 +68,18 @@ public class SymbolTable{
 		// TODO: 6/10/23 Controlla, va troppo a caso
 		int n = symbolTable.size()-1;
 		boolean found = false;
+
 		while (n>0 && !found) {
 			Hashtable<String, SymbolTableEntry> x = symbolTable.get(n);
 
 			if(this.lookup(id).getOffset() == -1) {
-				if(x.contains(id)) {
+				if(x.containsKey(id)) {
 					found = true;
 				} else n-=1;
 			} else {
-				//System.out.println("________________________________");
-				//System.out.println("Sto cercando "+id+" a livello "+ n);
-				//System.out.println("La ST è: "+symbolTable);
 				if(x.containsKey(id)) {
-					//	System.out.println("Contiene!");
 					found = true;
 				} else n-=1;
-
-				//System.out.println("________________________________");
-
 			}
 
 

@@ -49,12 +49,14 @@ import java.util.ArrayList;
         public String codeGeneration(Environment e)
         {
             String decCode="";
-            for (Node d: declarations)
-                decCode += d.codeGeneration(e);
+            if (declarations != null)
+                for (Node d: declarations)
+                    decCode += d.codeGeneration(e);
 
             String stmCode="";
-            for (Node s: statements)
-                stmCode += s.codeGeneration(e);
+            if(statements != null)
+                for (Node s: statements)
+                    stmCode += s.codeGeneration(e);
             return  "move SP FP \n"
                     + "pushr FP \n"
                     + "move SP AL \n"

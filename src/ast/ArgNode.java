@@ -18,7 +18,7 @@ public class ArgNode implements Node{
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         if (e.getSymbolTable().topLookup(id) != null)
-            errors.add(new SemanticError("Variabile" + id + " già dichiarata per la funzione."));
+            errors.add(new SemanticError("Variabile " + id + " già dichiarata per la funzione."));
         else {
 
             //System.out.println("ID: "+id+"; OFFSET: "+e.getOffset());

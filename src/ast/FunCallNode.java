@@ -25,9 +25,11 @@ public class FunCallNode implements Node{
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> results = new ArrayList<SemanticError>();
 
+        //System.out.println(e.getSymbolTable().get(1));
+
         nestingNode = e.getSymbolTable().nestingLookup(this.id);
         nesting = e.getNestingLevel();
-        System.out.println(this.id+": "+nesting+", "+nestingNode);
+        //System.out.println(this.id+": "+nesting+", "+nestingNode);
         if (e.getSymbolTable().lookup(id) == null)
             results.add(new SemanticError("Funzione " + this.id + " non dichiarata."));
         else {

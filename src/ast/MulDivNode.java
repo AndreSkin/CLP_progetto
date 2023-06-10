@@ -50,7 +50,7 @@ public class MulDivNode implements Node{
                 + "pushr A0 \n"
                 + e2.codeGeneration(e)
                 + "popr T1 \n"+
-                (op.equals("*") ? "mul A0 T1 \n" : "div A0 T1 \n")
+                (op.equals("*") ? "mul T1 A0 \n" : "div T1 A0 \n")
                 + "popr A0 \n";
     }
 }
