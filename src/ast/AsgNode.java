@@ -36,7 +36,7 @@ public class AsgNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error {
-        SymbolTableEntry st = e.getSymbolTable().lookup(id);
+        //SymbolTableEntry st = e.getSymbolTable().lookup(id);
         if (st == null) {
             throw new Error();
         }
@@ -45,8 +45,9 @@ public class AsgNode implements Node{
             throw new Error2("Errore di TypeChecking: Espressioni incompatibili durante l'assegnamento.");
         }
         //Controllo se assegno una funzione?
-
-        e.getSymbolTable().lookup(id).setInitialized();
+// TODO: 6/10/23 problema che dice gab
+        //e.getSymbolTable().lookup(id).setInitialized();
+        st.setInitialized();
         return expNode;
     }
 

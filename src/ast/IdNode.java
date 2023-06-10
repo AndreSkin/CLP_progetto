@@ -15,9 +15,12 @@ public class IdNode implements Node{
     }
 
     @Override
-    public ArrayList<SemanticError> checkSemantics(Environment e) {
+    public ArrayList<SemanticError> checkSemantics(Environment e) {;
+
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
         s= e.getSymbolTable().lookup(this.id);
+        //System.out.println(s.getStatus());
+
         this.nestingNode = e.getSymbolTable().nestingLookup(this.id);
         this.nesting = e.getNestingLevel();
         if (s==null)
@@ -27,7 +30,7 @@ public class IdNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error{
-      //  System.out.println(s.getStatus());
+        //  System.out.println(s.getStatus());
         //SymbolTableEntry s = e.getSymbolTable().lookup(this.id);
         if(s == null) {
             //non dichiarata
@@ -50,6 +53,8 @@ public class IdNode implements Node{
     public String codeGeneration(Environment e) {
 
         // TODO: 6/8/23 Controlla offset e inserimento della variabile, non viene fatto
+
+        System.out.println("Nesting di "+this.id+": "+nestingNode+", Nesting attuale: "+nesting);
 
         String getAR="";
         for (int i = 0; i < nesting - nestingNode; i++)

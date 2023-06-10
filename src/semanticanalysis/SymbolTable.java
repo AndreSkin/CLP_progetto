@@ -58,28 +58,40 @@ public class SymbolTable{
 		return result;
 	}
 
+	public SymbolTableEntry topLookup(String id) {
+		int n = symbolTable.size()-1;
+		Hashtable<String, SymbolTableEntry> x = symbolTable.get(n);
+		return x.get(id);
+	}
+
 	public int nestingLookup(String id) {
 		// TODO: 6/10/23 Controlla, va troppo a caso
 		int n = symbolTable.size()-1;
 		boolean found = false;
-		while (n>-1 && !found) {
+		while (n>0 && !found) {
 			Hashtable<String, SymbolTableEntry> x = symbolTable.get(n);
-			System.out.println(x);
 
 			if(this.lookup(id).getOffset() == -1) {
 				if(x.contains(id)) {
 					found = true;
 				} else n-=1;
 			} else {
+				//System.out.println("________________________________");
+				//System.out.println("Sto cercando "+id+" a livello "+ n);
+				//System.out.println("La ST è: "+symbolTable);
 				if(x.containsKey(id)) {
+					//	System.out.println("Contiene!");
 					found = true;
 				} else n-=1;
+
+				//System.out.println("________________________________");
+
 			}
 
 
 		}
 		//System.out.println((n+1)+"---------");
-		return n+1;
+		return n;
 	}
 
 	/*public void add(String s, SymbolTableEntry st)

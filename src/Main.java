@@ -70,7 +70,7 @@ public class Main {
             }
             System.out.println("Analisi Semantica completata con successo.");
 
-            boolean isCgen =  false;
+            boolean isCgen =  true;
 
             if(!isCgen) {
                 System.out.println("Inizio Type Checking");

@@ -15,8 +15,9 @@ public class ArgNode implements Node{
     }
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
+
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        if (e.getSymbolTable().lookup(id) != null)
+        if (e.getSymbolTable().topLookup(id) != null)
             errors.add(new SemanticError("Variabile" + id + " già dichiarata per la funzione."));
         else {
             e.getSymbolTable().insert(id, type,e.getOffset()) ;

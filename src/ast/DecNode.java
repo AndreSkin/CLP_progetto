@@ -17,8 +17,8 @@ public class DecNode implements Node {
 
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        if (e.getSymbolTable().lookup(id) != null)
-            errors.add(new SemanticError("Variabile" + id + " già dichiarata nel blocco corrente."));
+        if (e.getSymbolTable().topLookup(id) != null)
+            errors.add(new SemanticError("Variabile " + id + " già dichiarata nel blocco corrente."));
         else {
             e.getSymbolTable().insert(id, type, e.getOffset()) ;
             e.incrementOffset();

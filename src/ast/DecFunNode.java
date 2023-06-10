@@ -34,6 +34,7 @@ public class DecFunNode implements Node{
             return results;
         }
 
+
         ArrayList<TypeNode> paramsList = new ArrayList<>();
         if(this.params != null) {
             for(Node p: this.params) {
@@ -46,18 +47,27 @@ public class DecFunNode implements Node{
         // TODO: 6/7/23 Offset va bene?
         this.flabel = SimpLanlib.freshFunLabel() ;
 
+        e.getSymbolTable().insert(this.id, function,-1, this.flabel);
 
-        st.insert(this.id, function,-1, this.flabel);
+        st = e.getSymbolTable();
+        //System.out.println(e.getSymbolTable().get(0));
+        //System.out.println("Non Entro: "+e.getNestingLevel());
+        e.enterInNewBlock();
+        //System.out.println("Entro: "+e.getNestingLevel());
+
+        //System.out.println("ID: "+this.id+", params: "+paramsList);
 
         //Analizzo dentro
-        e.enterInNewBlock();
 
 // TODO: 6/7/23 Controlla se ti servono le label qui e se devi incrementare l'offset per il return value
-        //this.env.getSymbolTable().insert(this.id, function, -1);
 
         for(Node arg: params) {
             results.addAll(arg.checkSemantics(e));
         }
+        //System.out.println("Dopo param");
+        //System.out.println(e.getSymbolTable().get(1));
+
+        e.incrementOffset();
 
         for(Node dec: innerDecs) {
             results.addAll(dec.checkSemantics(e));

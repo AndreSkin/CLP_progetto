@@ -45,28 +45,40 @@ public class LogicalExpNode implements Node{
 
     @Override
     public String codeGeneration(Environment e) {
-        String trueL = SimpLanlib.freshLabel();
-        String lend = SimpLanlib.freshLabel();
 
-        String or="add A0 T1\n" +
-                "popr T1\n" +
-                "BGE T1 1 "+ trueL+"\n";
 
-        String and= "BEQ A0 1" + trueL+"\n"+
-                "BEQ T1 1" + trueL+"\n";
+        String result;
+        if (op.equals("&&")) {
+            String trueL = SimpLanlib.freshLabel();
+            String lend = SimpLanlib.freshLabel();
+            result = e1.codeGeneration(e)+
+                    "push 0 \n"+
+                    "popr T1 \n"+
+                    "beq A0 T1 "+lend+"\n"+
+                    e2.codeGeneration(e)+
+                    lend+ ":\n";
+        } else {
+            String trueL = SimpLanlib.freshLabel();
+            String lend = SimpLanlib.freshLabel();
+            result = e1.codeGeneration(e)+
+                    "pushr A0 \n" +
+                    e2.codeGeneration(e)+
+                    "popr T1 \n" +
+                    "add A0 T1 \n"+
+                    "popr A0 \n"+
+                    "push 1 \n"+
+                    "popr T1 \n"+
+                    "bgte A0 T1 "+trueL+"\n"+
+                    "push 0 \n"+
+                    "popr A0 \n"+
+                    "b "+lend+"\n"+
+                     trueL+ ":\n" +
+                    "push 1 \n"+
+                    "popr A0 \n"+
+                    lend+ ":\n";
+        }
 
-        return e1.codeGeneration(e)+
-                "pushr A0 \n" +
-                e2.codeGeneration(e)+
-                "popr T1 \n" +
-                (op.equals("||") ? or : and) +
-                //false
-                "pushr A0 0\n"+
-                "B"+lend+
 
-                trueL+ ":\n" +
-                "pushr A0 1\n"+
-
-                lend+ ":\n";
+        return result;
     }
 }
