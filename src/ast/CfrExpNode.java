@@ -53,11 +53,11 @@ public class CfrExpNode implements Node{
 
 
         String command = switch (this.op) {
-            case ">" -> "bgt T0 A0 "+true_lab+"\n";
-            case "<" -> "blt T0 A0 "+true_lab+"\n";
-            case ">=" -> "bgte T0 A0 "+true_lab+"\n";
-            case "<=" -> "bleq T0 A0 "+true_lab+"\n";
-            case "==" -> "beq T0 A0 "+true_lab+"\n";
+            case ">" -> "bgt T1 A0 "+true_lab+"\n";
+            case "<" -> "blt T1 A0 "+true_lab+"\n";
+            case ">=" -> "bgte T1 A0 "+true_lab+"\n";
+            case "<=" -> "bleq T1 A0 "+true_lab+"\n";
+            case "==" -> "beq T1 A0 "+true_lab+"\n";
             default -> "";
         };
 
@@ -66,7 +66,7 @@ public class CfrExpNode implements Node{
         return this.e1.codeGeneration(e)+
                 "pushr A0 \n"+
                 this.e2.codeGeneration(e)+
-                "popr T0 \n"+
+                "popr T1 \n"+
                 command+
                 "storei A0 0 \n"+
                 "b " + end + "\n" +

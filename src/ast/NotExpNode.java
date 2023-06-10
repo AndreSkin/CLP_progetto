@@ -36,8 +36,8 @@ public class NotExpNode implements Node{
     @Override
     public String codeGeneration(Environment e) {
         return this.exp.codeGeneration(e)
-        + "storei T0 1\n"
-        + "sub T0 A0\n"
+        + "storei T1 1\n"
+        + "sub T1 A0\n"
         + "popr A0\n";
     }
 }

@@ -27,6 +27,7 @@ public class IdNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error{
+      //  System.out.println(s.getStatus());
         //SymbolTableEntry s = e.getSymbolTable().lookup(this.id);
         if(s == null) {
             //non dichiarata

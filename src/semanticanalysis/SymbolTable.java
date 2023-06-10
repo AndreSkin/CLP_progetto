@@ -59,7 +59,7 @@ public class SymbolTable{
 	}
 
 	public int nestingLookup(String id) {
-		System.out.println("id: "+id+", nesting attuale: "+this.nesting()+"----------");
+		// TODO: 6/10/23 Controlla, va troppo a caso
 		int n = symbolTable.size()-1;
 		boolean found = false;
 		while (n>-1 && !found) {
@@ -78,7 +78,7 @@ public class SymbolTable{
 
 
 		}
-		System.out.println((n+1)+"---------");
+		//System.out.println((n+1)+"---------");
 		return n+1;
 	}
 

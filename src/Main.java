@@ -70,7 +70,7 @@ public class Main {
             }
             System.out.println("Analisi Semantica completata con successo.");
 
-            boolean isCgen =  true;
+            boolean isCgen =  false;
 
             if(!isCgen) {
                 System.out.println("Inizio Type Checking");
@@ -111,7 +111,7 @@ public class Main {
             SVMParser parserASM = new SVMParser(tokensASM);
 
             //parserASM.assembly();
-/*
+
             SVMVisitorImpl visitorSVM = new SVMVisitorImpl();
             visitorSVM.visit(parserASM.assembly());
 
@@ -121,7 +121,7 @@ public class Main {
             System.out.println("Starting Virtual Machine...");
             ExecuteVM vm = new ExecuteVM(visitorSVM.code);
             vm.cpu();
-*/
+
 
             /*int memsize = 100000;
             ArrayList<Integer> breakpoints = new ArrayList<Integer>();
