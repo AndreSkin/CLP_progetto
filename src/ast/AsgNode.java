@@ -14,6 +14,7 @@ public class AsgNode implements Node{
 
     SymbolTableEntry st;
     private int nesting;
+    private int nestingNode;
 
     public AsgNode(String id, Node exp) {
         this.id = id;
@@ -23,7 +24,8 @@ public class AsgNode implements Node{
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> res = new ArrayList<SemanticError>();
         st = e.getSymbolTable().lookup(id);
-        nesting = e.getSymbolTable().nestingLookup(id);
+        nestingNode = e.getSymbolTable().nestingLookup(id);
+        nesting = e.getNestingLevel();
         if(st == null){
             throw new Error2("Variabile "+this.id+" non dichiarata nell'ambiente corrente.");
         } else if(this.exp != null) {
@@ -57,7 +59,7 @@ public class AsgNode implements Node{
     public String codeGeneration(Environment e) {
 
         String getAR="";
-        for (int i = 0; i < e.getNestingLevel() - nesting; i++)
+        for (int i = 0; i < nesting - nestingNode; i++)
             getAR += "store T1 0(T1) \n";
 
 

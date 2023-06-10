@@ -7,19 +7,19 @@ import java.util.ArrayList;
 public class IdNode implements Node{
     private String id;
     SymbolTableEntry s;
+
     private int nesting;
+    private int nestingNode;
     public IdNode(String id) {
         this.id = id;
     }
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
-        System.out.println(this.id);
-
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
         s= e.getSymbolTable().lookup(this.id);
-        this.nesting = e.getSymbolTable().nestingLookup(this.id);
-
+        this.nestingNode = e.getSymbolTable().nestingLookup(this.id);
+        this.nesting = e.getNestingLevel();
         if (s==null)
             result.add(new SemanticError("Variabile "+this.id+" non dichiarata."));
         return result;
@@ -51,7 +51,7 @@ public class IdNode implements Node{
         // TODO: 6/8/23 Controlla offset e inserimento della variabile, non viene fatto
 
         String getAR="";
-        for (int i = 0; i < e.getNestingLevel() - nesting; i++)
+        for (int i = 0; i < nesting - nestingNode; i++)
             getAR += "store T1 0(T1) \n";
 
         return  "move AL T1 \n"

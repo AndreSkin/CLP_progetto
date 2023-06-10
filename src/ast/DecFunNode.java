@@ -26,6 +26,7 @@ public class DecFunNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
+
         ArrayList<SemanticError> results = new ArrayList<>();
         SymbolTable st = e.getSymbolTable();
         if (st.lookup(this.id) != null) {
@@ -47,9 +48,9 @@ public class DecFunNode implements Node{
 
 
         st.insert(this.id, function,-1, this.flabel);
+
         //Analizzo dentro
         e.enterInNewBlock();
-
 
 // TODO: 6/7/23 Controlla se ti servono le label qui e se devi incrementare l'offset per il return value
         //this.env.getSymbolTable().insert(this.id, function, -1);
@@ -110,9 +111,6 @@ public class DecFunNode implements Node{
     @Override
     public String codeGeneration(Environment e)
     {
-
-        System.out.println(this.id);
-
         int paramSpace = this.params.size();
 
         String innerStmCode = "";
@@ -141,7 +139,6 @@ public class DecFunNode implements Node{
                         + "pop \n"
                         + "rsub RA \n"
         );
-        System.out.println(this.id);
 
         return "push "+ flabel +"\n";
     }

@@ -11,6 +11,11 @@ public class FunCallNode implements Node{
     String id;
     ArrayList<Node> params;
 
+    SymbolTableEntry st;
+    private int nesting;
+
+    private int nestingNode;
+
     public FunCallNode(String id, ArrayList<Node> params) {
         this.id = id;
         this.params = params;
@@ -19,7 +24,12 @@ public class FunCallNode implements Node{
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> results = new ArrayList<SemanticError>();
-        if (e.getSymbolTable().lookup(this.id) == null)
+        st = e.getSymbolTable().lookup(this.id);
+
+        nesting = e.getNestingLevel();
+        nestingNode = e.getSymbolTable().nestingLookup(this.id);
+        System.out.println(this.id+": "+nesting+", "+nestingNode);
+        if (st == null)
             results.add(new SemanticError("Funzione " + this.id + " non dichiarata."));
         else
             if (this.params != null)
@@ -30,8 +40,7 @@ public class FunCallNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) {
-        SymbolTableEntry ste = e.getSymbolTable().lookup(this.id);
-        TypeNode t = ste.getType();
+        TypeNode t = st.getType();
         if(!t.isFunction()) {
             throw new Error2("Errore durante l'invocazione. "+this.id+" non è una funzione.");
         }
@@ -71,7 +80,7 @@ public class FunCallNode implements Node{
 
         String getAR="";
 
-        for (int i=0; i < e.getNestingLevel() - e.getSymbolTable().nestingLookup(this.id) ; i++)
+        for (int i=0; i < nesting - nestingNode; i++)
             getAR+="store T1 0(T1) \n";
         // formato AR: control_link + access link + parameters + indirizzo di ritorno + dich_locali
 

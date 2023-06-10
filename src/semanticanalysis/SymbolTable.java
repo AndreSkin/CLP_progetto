@@ -59,14 +59,26 @@ public class SymbolTable{
 	}
 
 	public int nestingLookup(String id) {
+		System.out.println("id: "+id+", nesting attuale: "+this.nesting()+"----------");
 		int n = symbolTable.size()-1;
 		boolean found = false;
 		while (n>-1 && !found) {
 			Hashtable<String, SymbolTableEntry> x = symbolTable.get(n);
-			if(x.contains(id)) {
-				found = true;
-			} else n-=1;
+			System.out.println(x);
+
+			if(this.lookup(id).getOffset() == -1) {
+				if(x.contains(id)) {
+					found = true;
+				} else n-=1;
+			} else {
+				if(x.containsKey(id)) {
+					found = true;
+				} else n-=1;
+			}
+
+
 		}
+		System.out.println((n+1)+"---------");
 		return n+1;
 	}
 
