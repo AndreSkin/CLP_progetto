@@ -1,10 +1,9 @@
-int x;
-int fact(int n) {
-    if (n == 0) {
-        x
-    } else {
-        fact(n - 1) * n
-    }
+int u ;
+int f(int n){
+    int y ;
+	y = 1 ;
+	if (n == 0) { y }
+	else { y = f(n-1) ; y*n }
 }
-x = 1;
-fact(13)
+u = 2 ;
+f(u)

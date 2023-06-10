@@ -28,7 +28,7 @@ public class FunCallNode implements Node{
 
         nesting = e.getNestingLevel();
         nestingNode = e.getSymbolTable().nestingLookup(this.id);
-        System.out.println(this.id+": "+nesting+", "+nestingNode);
+        //System.out.println(this.id+": "+nesting+", "+nestingNode);
         if (st == null)
             results.add(new SemanticError("Funzione " + this.id + " non dichiarata."));
         else

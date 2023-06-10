@@ -54,7 +54,7 @@ public class IdNode implements Node{
 
         // TODO: 6/8/23 Controlla offset e inserimento della variabile, non viene fatto
 
-        System.out.println("Nesting di "+this.id+": "+nestingNode+", Nesting attuale: "+nesting);
+        //System.out.println("Nesting di "+this.id+": "+nestingNode+", Nesting attuale: "+nesting);
 
         String getAR="";
         for (int i = 0; i < nesting - nestingNode; i++)

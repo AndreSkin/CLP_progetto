@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 
 import SVMPkg.*;
+import semanticanalysis.SymbolTable;
 
 public class Main {
 
@@ -77,9 +78,9 @@ public class Main {
                 ast.typeCheck(env);
                 System.out.println("Type Checking completato con successo.");
             }
-        /*
-        Codice per debug Offset
-        SymbolTable st = env.getSymbolTable();
+
+        //Codice per debug Offset
+        /*SymbolTable st = env.getSymbolTable();
         for(int i=0; i<st.getSize();i++) {
             System.out.println("Livello "+i);
             for(String k: st.get(i).keySet()){

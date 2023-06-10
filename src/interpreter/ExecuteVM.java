@@ -2,6 +2,8 @@ package interpreter;
 
 import SVMPkg.*;
 
+import java.util.Hashtable;
+
 public class ExecuteVM {
     
     public static final int CODESIZE = 1000 ;
@@ -18,14 +20,57 @@ public class ExecuteVM {
     private int a0;					// the register for values of expressions
     private int t1;					// temporary register
     private int t2;					// additional temporary register, just in case
+	Hashtable<Integer, String> parseString = new Hashtable<>();
 
+
+	public void initializeParseString() {
+		this.parseString.put(1,"T__0");
+		this.parseString.put(2,"T__1");
+		this.parseString.put(3,"T__2");
+		this.parseString.put(4,"LOAD");
+		this.parseString.put(5,"STORE");
+		this.parseString.put(6,"STOREI");
+		this.parseString.put(7,"MOVE");
+		this.parseString.put(8,"ADD");
+		this.parseString.put(9,"ADDI");
+		this.parseString.put(10,"SUB");
+		this.parseString.put(11,"SUBI");
+		this.parseString.put(12,"MUL");
+		this.parseString.put(13,"MULI");
+		this.parseString.put(14,"DIV");
+		this.parseString.put(15,"DIVI");
+		this.parseString.put(16,"PUSH");
+		this.parseString.put(17,"PUSHR");
+		this.parseString.put(18,"POP");
+		this.parseString.put(19,"POPR");
+		this.parseString.put(20,"BRANCH");
+		this.parseString.put(21,"BRANCHEQ");
+		this.parseString.put(22,"BRANCHLESSEQ");
+		this.parseString.put(23,"JUMPSUB");
+		this.parseString.put(24,"RETURNSUB");
+		this.parseString.put(25,"HALT");
+		this.parseString.put(26,"BRANCHEGT");
+		this.parseString.put(27,"BRANCHEQLT");
+		this.parseString.put(28,"BRANCHEQGTE");
+		this.parseString.put(29,"REG");
+		this.parseString.put(30,"LABEL");
+		this.parseString.put(31,"NUMBER");
+		this.parseString.put(32,"WHITESP");
+		this.parseString.put(33,"LINECOMENTS");
+		this.parseString.put(34,"ERR");
+	}
     public ExecuteVM(AssemblyClass[] _code) {
     		code = _code ;
+			this.initializeParseString();
     }
- 
- 
+
+
+	public String parseString(Integer key) {
+		return this.parseString.get(key);
+	}
+
     public void StampaMem(int _j){
-    		System.out.print(_j + ": " + code[ip].getCode()) ;
+    		System.out.print(_j + ": " + this.parseString(code[ip].getCode())) ;
     		for (int i = MEMSIZE-1; i > sp ; i--){
     			System.out.print("\t" + memory[i]) ; 			
     		}
@@ -103,7 +148,8 @@ public class ExecuteVM {
  
     	while ( true ) {
     	    StampaMem(j) ; j=j+1 ;
-    	  	AssemblyClass bytecode = code[ip] ; // fetch
+
+	   	  	AssemblyClass bytecode = code[ip] ; // fetch
             int tmp ;
             int address;
             switch ( bytecode.getCode() ) {

@@ -68,7 +68,7 @@ public class AsgNode implements Node{
                 "move AL T1 \n"
                 + getAR  //risalgo la catena statica
                 + "subi T1 " + st.getOffset() + "\n" //metto offset sullo stack
-                + "load A0 0(T1) \n"
-                + "pushr A0 \n";
+                + "load A0 0(T1) \n";/*
+                + "pushr A0 \n";*/
     }
 }

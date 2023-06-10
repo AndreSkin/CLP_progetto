@@ -67,7 +67,7 @@ public class DecFunNode implements Node{
         //System.out.println("Dopo param");
         //System.out.println(e.getSymbolTable().get(1));
 
-        e.incrementOffset();
+       // e.incrementOffset();
 
         for(Node dec: innerDecs) {
             results.addAll(dec.checkSemantics(e));
@@ -122,6 +122,12 @@ public class DecFunNode implements Node{
     public String codeGeneration(Environment e)
     {
         int paramSpace = this.params.size();
+        String declCode = "" ;
+        if (innerDecs.size() != 0) {
+            for (Node dec:innerDecs){
+                declCode += dec.codeGeneration(e);
+            }
+        }
 
         String innerStmCode = "";
         if (innerStatements != null)
@@ -137,6 +143,8 @@ public class DecFunNode implements Node{
         SimpLanlib.putCode(
                 flabel + ":\n"
                         + "pushr RA \n"
+                       // + "subi SP "+paramSpace+" \n"
+                        + declCode
                         + innerStmCode
                         + innerExpCode
                         + "addi SP " + 	innerDecs.size() + "\n"
@@ -149,7 +157,7 @@ public class DecFunNode implements Node{
                         + "pop \n"
                         + "rsub RA \n"
         );
-
-        return "push "+ flabel +"\n";
+        return "";
+/*        return "push "+ flabel +"\n";*/
     }
 }
