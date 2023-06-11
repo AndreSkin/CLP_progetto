@@ -1,7 +1,7 @@
 package ast;
 
 import semanticanalysis.Environment;
-import semanticanalysis.Error2;
+import semanticanalysis.SimpLanCustomError;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTableEntry;
 
@@ -45,24 +45,24 @@ public class FunCallNode implements Node{
     public TypeNode typeCheck(Environment e) {
         TypeNode t = st.getType();
         if(!t.isFunction()) {
-            throw new Error2("Errore durante l'invocazione. "+this.id+" non è una funzione.");
+            throw new SimpLanCustomError("Errore durante l'invocazione. "+this.id+" non è una funzione.");
         }
 
         ArrayList<TypeNode> expectedParams = t.getParams();
 
         if(this.params.size() != expectedParams.size()) {
-            throw new Error2("Errore durante l'invocazione di"+this.id+". Numero dei parametri errato.");
+            throw new SimpLanCustomError("Errore durante l'invocazione di"+this.id+". Numero dei parametri errato.");
         }
 
         //Controllo dei tipi dei formali e attuali
 
         for(int i=0; i<this.params.size();i++) {
             if(!this.params.get(i).typeCheck(e).getType().equals(expectedParams.get(i).getType())) {
-                throw new Error2("Errore durante l'invocazione di "+this.id+". Tipo errato per il "+(i+1)+" parametro.");
+                throw new SimpLanCustomError("Errore durante l'invocazione di "+this.id+". Tipo errato per il "+(i+1)+" parametro.");
             }
 
             if(this.params.get(i).getClass() == IfExpNode.class || this.params.get(i).getClass() == IfStmNode.class) {
-                throw new Error2("Errore durante l'invocazione di "+this.id+". Operatore If Then Else non consentito come parametro.");
+                throw new SimpLanCustomError("Errore durante l'invocazione di "+this.id+". Operatore If Then Else non consentito come parametro.");
             }
         }
 

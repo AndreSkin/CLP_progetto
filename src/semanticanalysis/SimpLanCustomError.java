@@ -1,11 +1,11 @@
 package semanticanalysis;
 
-public class Error2 extends RuntimeException
+public class SimpLanCustomError extends RuntimeException
 {
     private static final long serialVersionUID = 1L;
     private String message = "Errore";
 
-    public Error2(String message)
+    public SimpLanCustomError(String message)
     {
         this.message = message;
     }

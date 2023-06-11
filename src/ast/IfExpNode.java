@@ -52,7 +52,7 @@ public class IfExpNode implements Node{
     @Override
     public TypeNode typeCheck(Environment e) {
         if (!condition.typeCheck(e).getType().equals("bool") )
-            throw new Error2("Errore di TypeChecking: Guardia non booleana.");
+            throw new SimpLanCustomError("Errore di TypeChecking: Guardia non booleana.");
 
         Environment tmp = new Environment(e);
 
@@ -68,7 +68,7 @@ public class IfExpNode implements Node{
             TypeNode elseTypeNode = innerElseExp.typeCheck(tmp);
 
             if(!thenTypeNode.getType().equals(elseTypeNode.getType()))
-                throw new Error2("Errore di TypeChecking: Then e Else ritornano tipi differenti.");
+                throw new SimpLanCustomError("Errore di TypeChecking: Then e Else ritornano tipi differenti.");
 
             for(int i=0; i<e.getSymbolTable().getSize(); i++) {
                 Hashtable<String, SymbolTableEntry> tmp1 = e.getSymbolTable().get(i);
@@ -76,7 +76,7 @@ public class IfExpNode implements Node{
                 for(String elem: tmp1.keySet()) {
                     if((tmp1.get(elem).getStatus() == Status.INITIALIZED && tmp2.get(elem).getStatus() == Status.DECLARED) || (tmp1.get(elem).getStatus() == Status.DECLARED && tmp2.get(elem).getStatus() == Status.INITIALIZED)) {
                         //System.out.println("Warning: Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
-                        throw new Error2("Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
+                        throw new SimpLanCustomError("Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
                         //e.getSymbolTable().get(i).get(elem).setDeclared();
                     }
                 }

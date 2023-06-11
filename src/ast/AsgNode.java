@@ -1,7 +1,7 @@
 package ast;
 
 import semanticanalysis.Environment;
-import semanticanalysis.Error2;
+import semanticanalysis.SimpLanCustomError;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTableEntry;
 
@@ -27,7 +27,7 @@ public class AsgNode implements Node{
         nestingNode = e.getSymbolTable().nestingLookup(id);
         nesting = e.getNestingLevel();
         if(st == null){
-            throw new Error2("Variabile "+this.id+" non dichiarata nell'ambiente corrente.");
+            throw new SimpLanCustomError("Variabile "+this.id+" non dichiarata nell'ambiente corrente.");
         } else if(this.exp != null) {
             res.addAll(this.exp.checkSemantics(e));
         }
@@ -42,7 +42,7 @@ public class AsgNode implements Node{
         }
         TypeNode expNode = this.exp.typeCheck(e);
         if(!st.getType().getType().equals(expNode.getType())){
-            throw new Error2("Errore di TypeChecking: Espressioni incompatibili durante l'assegnamento.");
+            throw new SimpLanCustomError("Errore di TypeChecking: Espressioni incompatibili durante l'assegnamento.");
         }
         //Controllo se assegno una funzione?
 // TODO: 6/10/23 problema che dice gab

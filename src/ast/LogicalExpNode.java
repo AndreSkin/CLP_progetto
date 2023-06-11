@@ -2,7 +2,7 @@ package ast;
 
 import others.SimpLanlib;
 import semanticanalysis.Environment;
-import semanticanalysis.Error2;
+import semanticanalysis.SimpLanCustomError;
 import semanticanalysis.SemanticError;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class LogicalExpNode implements Node{
     @Override
     public TypeNode typeCheck(Environment e) throws Error {
         if(!e1.typeCheck(e).getType().equals("bool") || !e2.typeCheck(e).getType().equals("bool")){
-            throw new Error2("Errore di TypeChecking: Variabili non compatibili con questa operazione.");
+            throw new SimpLanCustomError("Errore di TypeChecking: Variabili non compatibili con questa operazione.");
         }
         return new TypeNode("bool");
     }

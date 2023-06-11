@@ -2,7 +2,7 @@ package ast;
 
 import others.SimpLanlib;
 import semanticanalysis.Environment;
-import semanticanalysis.Error2;
+import semanticanalysis.SimpLanCustomError;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
 
@@ -101,7 +101,7 @@ public class DecFunNode implements Node{
         if (innerExp != null) {
             TypeNode returnType = innerExp.typeCheck(e);
             if (!returnType.getType().equals(this.type.getType()))
-                throw new Error2("Errore di TypeChecking: Tipo di ritorno della funzione diverso dal tipo atteso.");
+                throw new SimpLanCustomError("Errore di TypeChecking: Tipo di ritorno della funzione diverso dal tipo atteso.");
         }
         return this.type;
     }

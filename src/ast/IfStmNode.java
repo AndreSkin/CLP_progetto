@@ -38,9 +38,9 @@ public class IfStmNode implements Node{
     }
 
     @Override
-    public TypeNode typeCheck(Environment e) throws Error2{
+    public TypeNode typeCheck(Environment e) throws SimpLanCustomError {
         if (!condition.typeCheck(e).getType().equals("bool") )
-            throw new Error2("Errore di TypeChecking: Guardia non booleana.");
+            throw new SimpLanCustomError("Errore di TypeChecking: Guardia non booleana.");
 
         Environment tmp = new Environment(e);
 
@@ -63,7 +63,7 @@ public class IfStmNode implements Node{
                 Hashtable<String, SymbolTableEntry> tmp2 = tmp.getSymbolTable().get(i);
                 for(String elem: tmp1.keySet()) {
                     if((tmp1.get(elem).getStatus() == Status.INITIALIZED && tmp2.get(elem).getStatus() == Status.DECLARED) || (tmp1.get(elem).getStatus() == Status.DECLARED && tmp2.get(elem).getStatus() == Status.INITIALIZED)) {
-                        throw new Error2("Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
+                        throw new SimpLanCustomError("Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
                         //System.out.println("Warning: Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
                         //e.getSymbolTable().get(i).get(elem).setDeclared();
                     }

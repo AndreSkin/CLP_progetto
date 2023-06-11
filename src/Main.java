@@ -4,7 +4,7 @@ import ast.Node;
 import interpreter.ExecuteVM;
 import org.antlr.v4.runtime.*;
 import semanticanalysis.Environment;
-import semanticanalysis.Error2;
+import semanticanalysis.SimpLanCustomError;
 import semanticanalysis.SemanticError;
 
 import java.io.File;
@@ -31,7 +31,7 @@ public class Main {
                 switch (command)
                 {
                     case "-h":
-                        case "-help":
+                    case "-help":
                             System.out.println("java -jar CLP_progetto.jar [path_to_input_file] [-h|-log|-skiptypecheck]");
                             System.exit(0);
                     case "-log":
@@ -48,7 +48,7 @@ public class Main {
                         if (inputPath.equals("./src/input.txt")) {
                             System.out.println("Input File modificato: "+command);
                             inputPath = command;
-                        } else throw new Error2("Paremetro sconosciuto");
+                        } else throw new SimpLanCustomError("Paremetro sconosciuto");
                 }
                 i++;
             }
@@ -56,7 +56,7 @@ public class Main {
         catch (Exception e)
         {
             System.out.println("Usage: java -jar CLP_progetto.jar [path_to_input_file] [-h|-log|-skiptypecheck]");
-            throw new Error2("Errore nei parametri.");
+            throw new SimpLanCustomError("Errore nei parametri.");
         }
 
 
@@ -95,7 +95,7 @@ public class Main {
                 for (String s : handler.errors) {
                     Files.write(Paths.get("./out/errors.txt"), s.getBytes(), StandardOpenOption.APPEND);
                 }
-                throw new Error2("Errori sintattici rilevati. Visualizzare l'output nel file ./out/errors.txt");
+                throw new SimpLanCustomError("Errori sintattici rilevati. Visualizzare l'output nel file ./out/errors.txt");
             }
             System.out.println("Analisi Sintattica completata con successo.");
 
@@ -106,7 +106,7 @@ public class Main {
             if (!err.isEmpty()) {
                 for (SemanticError er : err)
                     System.out.println(er);
-                throw new Error2("Errori semantici presenti.");
+                throw new SimpLanCustomError("Errori semantici presenti.");
             }
             System.out.println("Analisi Semantica completata con successo.");
 
@@ -157,7 +157,7 @@ public class Main {
             ExecuteVM vm = new ExecuteVM(visitorSVM.code);
             vm.cpu();
         } catch (Exception e) {
-            throw new Error2(e.getMessage());
+            throw new SimpLanCustomError(e.getMessage());
         }
     }
 }
