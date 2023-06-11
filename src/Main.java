@@ -60,9 +60,6 @@ public class Main {
         }
 
 
-
-    	//Exercise 1
-    	
         String input = new String(Files.readAllBytes(Paths.get(inputPath)));
         CharStream stream = CharStreams.fromString(input);
         SimpLanPlusLexer lexer = new SimpLanPlusLexer(stream);
@@ -117,16 +114,6 @@ public class Main {
                 System.out.println("Type Checking completato con successo.");
             }
 
-
-            //Codice per debug Offset
-            /*SymbolTable st = env.getSymbolTable();
-            for(int i=0; i<st.getSize();i++) {
-                System.out.println("Livello "+i);
-                for(String k: st.get(i).keySet()){
-                    System.out.println(k+": "+st.get(i).get(k).getOffset());
-                }
-                System.out.println("-----");
-            }*/
             System.out.println("Inizio Generazione di codice intermedio.");
             String code = ast.codeGeneration(env);
 

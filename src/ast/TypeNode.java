@@ -52,9 +52,4 @@ public class TypeNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         return new ArrayList<SemanticError>();
     }
-
-    /*@Override
-    public void setupBreaks(ArrayList<Integer> breaks){
-        return;
-    }*/
 }

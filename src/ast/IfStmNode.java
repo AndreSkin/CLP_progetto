@@ -23,7 +23,6 @@ public class IfStmNode implements Node{
         result.addAll(condition.checkSemantics(e));
         Environment tmp = new Environment(e);
 
-        //System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
 
         for(Node n: then_node) {
             result.addAll(n.checkSemantics(e));
@@ -44,16 +43,12 @@ public class IfStmNode implements Node{
 
         Environment tmp = new Environment(e);
 
-        //System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
 
         for(Node n: then_node) {
             n.typeCheck(e);
         }
 
         if(else_node != null) {
-            //System.out.println(e.getSymbolTable().lookup("b").getStatus());
-            //System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
-
             for (Node n : else_node) {
                 n.typeCheck(tmp);
             }
@@ -63,14 +58,13 @@ public class IfStmNode implements Node{
                 Hashtable<String, SymbolTableEntry> tmp2 = tmp.getSymbolTable().get(i);
                 for(String elem: tmp1.keySet()) {
                     if((tmp1.get(elem).getStatus() == Status.INITIALIZED && tmp2.get(elem).getStatus() == Status.DECLARED) || (tmp1.get(elem).getStatus() == Status.DECLARED && tmp2.get(elem).getStatus() == Status.INITIALIZED)) {
-                        throw new SimpLanCustomError("Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
+                        throw new SimpLanCustomError("Incompatibilità di assegnamenti nel ramo then e nel ramo else per la variabile "+tmp1.get(elem).getLabel());
                         //System.out.println("Warning: Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
                         //e.getSymbolTable().get(i).get(elem).setDeclared();
                     }
                 }
             }
         } else {
-            //restore dell'ambiente, non posso sapere
             e = tmp;
         }
         return null;

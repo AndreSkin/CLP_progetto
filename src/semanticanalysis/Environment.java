@@ -56,16 +56,4 @@ public class Environment{
         return this.symbolTable.nesting();
     }
 
-    /*public void setNestingLevel(int nl) {
-        this.nestingLevel = nl;
-    }
-
-    public int getOffset() {
-        return this.offset;
-    }
-
-    public void setOffset(int of) {
-        this.offset = of;
-    }*/
-
 }

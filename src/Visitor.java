@@ -11,9 +11,7 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         if(this.log)
             System.out.println("visitMultipleExp");
         ProgramNode result;
-        //list of declarations in @res
         ArrayList<Node> declarations = new ArrayList<Node>();
-        //list of statements
         ArrayList<Node> statements = new ArrayList<Node>();
 
         Node exp;
@@ -39,7 +37,6 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     public Node visitSingleExp(SimpLanPlusParser.SingleExpContext ctx) {
         if(this.log)
             System.out.println("visitSingleExp");
-        //simply return the result of the visit to the inner exp
         return new ProgramNode(visit(ctx.exp()));
     }
 
@@ -47,10 +44,8 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         if(this.log)
             System.out.println("visitVarDec");
 
-        //visit the type
         TypeNode typeNode = (TypeNode) visit(ctx.type());
 
-        //build the varNode
         return new DecNode(ctx.ID().getText(), typeNode);
     }
 
@@ -58,15 +53,12 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         if(this.log)
             System.out.println("visitParam");
 
-        //visit the type
         TypeNode typeNode = (TypeNode) visit(ctx.type());
 
-        //build the varNode
         return new ArgNode(typeNode,ctx.ID().getText());
     }
 
     public Node visitFunDec(SimpLanPlusParser.FunDecContext ctx) {
-        // TODO: 6/6/23 Controlla anche funzione senza parametri
         if(this.log)
             System.out.println("visitFunDec");
 
@@ -75,7 +67,6 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
         for (SimpLanPlusParser.ParamContext p : ctx.param())
             param.add(visit(p));
 
-        //Visita del corpo
         ArrayList<Node> innerDecs = new ArrayList<Node>();
         ArrayList<Node> innerStatements = new ArrayList<Node>();
         Node innerExp;
@@ -170,7 +161,7 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
             System.out.println("visitMulDivExp");
         return new MulDivNode(visit(ctx.e1), ctx.op.getText(), visit(ctx.e2));
     }
-// term   : left=exp ((mul='*' | div='/') right=exp)?
+
     public Node visitPlusMinusExp(SimpLanPlusParser.PlusMinusExpContext ctx) {
         if(this.log)
             System.out.println("visitPlusMinusExp");
@@ -220,7 +211,6 @@ public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     }
 
     public Node visitFunCallExp(SimpLanPlusParser.FunCallExpContext ctx) {
-        // TODO: 6/6/23 Controlla bene la differenza tra le due chiamate di funzione. Posso usare lo stesso Nodo?
         if(this.log)
             System.out.println("visitFunCallExp");
 

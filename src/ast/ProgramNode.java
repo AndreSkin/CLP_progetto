@@ -89,7 +89,6 @@ import java.util.ArrayList;
             if(this.exp != null) {
                 result.addAll(exp.checkSemantics(env));
             }
-            //this.env.getSymbolTable().exitFromBlock();
             return result;
         }
 

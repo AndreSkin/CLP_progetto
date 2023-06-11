@@ -36,7 +36,6 @@ public class AsgNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error {
-        //SymbolTableEntry st = e.getSymbolTable().lookup(id);
         if (st == null) {
             throw new Error();
         }
@@ -44,9 +43,6 @@ public class AsgNode implements Node{
         if(!st.getType().getType().equals(expNode.getType())){
             throw new SimpLanCustomError("Errore di TypeChecking: Espressioni incompatibili durante l'assegnamento.");
         }
-        //Controllo se assegno una funzione?
-// TODO: 6/10/23 problema che dice gab
-        //e.getSymbolTable().lookup(id).setInitialized();
         st.setInitialized();
         return expNode;
     }
@@ -68,7 +64,6 @@ public class AsgNode implements Node{
                 "move AL T1 \n"
                 + getAR  //risalgo la catena statica
                 + "subi T1 " + st.getOffset()+ "\n" //metto offset sullo stack
-                + "load A0 0(T1) \n";/*
-                + "pushr A0 \n";*/
+                + "load A0 0(T1) \n";
     }
 }

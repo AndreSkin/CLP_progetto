@@ -25,11 +25,8 @@ public class FunCallNode implements Node{
     public ArrayList<SemanticError> checkSemantics(Environment e) {
         ArrayList<SemanticError> results = new ArrayList<SemanticError>();
 
-        //System.out.println(e.getSymbolTable().get(1));
-
         nestingNode = e.getSymbolTable().nestingLookup(this.id);
         nesting = e.getNestingLevel();
-        //System.out.println(this.id+": "+nesting+", "+nestingNode);
         if (e.getSymbolTable().lookup(id) == null)
             results.add(new SemanticError("Funzione " + this.id + " non dichiarata."));
         else {
@@ -76,7 +73,6 @@ public class FunCallNode implements Node{
 
     @Override
     public String codeGeneration(Environment e) {
-        // TODO: 6/9/23  Non credo serva? i parametri non generano codice
         String parCode="";
         for (int i = 0; i < this.params.size() ; i = i+1)
             parCode += this.params.get(i).codeGeneration(e) + "pushr A0\n" ;
@@ -99,5 +95,3 @@ public class FunCallNode implements Node{
                 + "jsub " + st.getLabel() + "\n" ;
     }
 }
-// TODO: 6/10/23 riga 95 non so se ha senso
-//(1+ params.size())

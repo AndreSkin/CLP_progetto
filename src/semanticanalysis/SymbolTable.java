@@ -64,7 +64,6 @@ public class SymbolTable{
 	}
 
 	public int nestingLookup(String id) {
-		// TODO: 6/10/23 Controlla, va troppo a caso
 		int n = symbolTable.size()-1;
 		boolean found = false;
 
@@ -72,6 +71,7 @@ public class SymbolTable{
 			Hashtable<String, SymbolTableEntry> x = symbolTable.get(n);
 
 			if(this.lookup(id).getOffset() == -1) {
+				//contains
 				if(x.containsKey(id)) {
 					found = true;
 				} else n-=1;
@@ -83,21 +83,8 @@ public class SymbolTable{
 
 
 		}
-		//System.out.println((n+1)+"---------");
 		return n;
 	}
-
-	/*public void add(String s, SymbolTableEntry st)
-	{
-		if(symbolTable.isEmpty()){
-			Hashtable<String, SymbolTableEntry> current = new Hashtable<String, SymbolTableEntry>();
-			current.put(s, st);
-			symbolTable.push(current);
-		} else {
-			Hashtable<String, SymbolTableEntry> x = symbolTable.peek();
-			x.put(s, st);
-		}
-	}*/
 
 	public void insert(String id, TypeNode type, int offset) {
 		Hashtable<String, SymbolTableEntry> x = symbolTable.pop();

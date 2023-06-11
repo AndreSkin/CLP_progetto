@@ -19,7 +19,6 @@ public class IdNode implements Node{
 
         ArrayList<SemanticError> result = new ArrayList<SemanticError>();
         s= e.getSymbolTable().lookup(this.id);
-        //System.out.println(s.getStatus());
 
         this.nestingNode = e.getSymbolTable().nestingLookup(this.id);
         this.nesting = e.getNestingLevel();
@@ -30,8 +29,6 @@ public class IdNode implements Node{
 
     @Override
     public TypeNode typeCheck(Environment e) throws Error{
-        //  System.out.println(s.getStatus());
-        //SymbolTableEntry s = e.getSymbolTable().lookup(this.id);
         if(s == null) {
             //non dichiarata
             throw new SimpLanCustomError("Errore di TypeChecking: Variabile "+this.id+" non dichiarata.");
@@ -40,7 +37,6 @@ public class IdNode implements Node{
         if (s.getStatus() == Status.DECLARED) {
             throw new SimpLanCustomError("Errore di TypeChecking: Uso della variabile "+s.getLabel()+" dichiarata ma non inizializzata.");
         }
-        //se volessi implementare anche le usate e non usate, l'update va messo qui
         return s.getType();
     }
 
@@ -51,10 +47,6 @@ public class IdNode implements Node{
 
     @Override
     public String codeGeneration(Environment e) {
-
-        // TODO: 6/8/23 Controlla offset e inserimento della variabile, non viene fatto
-
-        //System.out.println("Nesting di "+this.id+": "+nestingNode+", Nesting attuale: "+nesting);
 
         String getAR="";
         for (int i = 0; i < nesting - nestingNode; i++)

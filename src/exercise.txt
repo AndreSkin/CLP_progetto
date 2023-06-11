@@ -1,6 +1,59 @@
-int x;
-void f(int y) {
-y=1;
-1+2
+
+int x ;
+void f(int n){
+	if (n == 0) { n = 0 ; }       // n e` gia` uguale a 0; equivale a fare skip
+	else { x = x * n ; f(n-1) ; }
 }
-f(1)
+x = 1 ;
+f(10)
+
+Ignoro Type Checking.
+Inizio Analisi Sintattica.
+Analisi Sintattica completata con successo.
+Inizio Analisi Semantica.
+Analisi Semantica completata con successo.
+Inizio Generazione di codice intermedio.
+Codice generato con successo. Output nel file /out/code.asm
+Starting Virtual Machine...
+Result: 0
+
+
+
+int u ;
+int f(int n){
+        int y ;
+	y = 1 ;
+	if (n == 0) { y }
+	else { y = f(n-1) ; y*n }
+}
+u = 6 ;
+f(u)
+Ignoro Type Checking.
+Inizio Analisi Sintattica.
+Analisi Sintattica completata con successo.
+Inizio Analisi Semantica.
+Analisi Semantica completata con successo.
+Inizio Generazione di codice intermedio.
+Codice generato con successo. Output nel file /out/code.asm
+Starting Virtual Machine...
+Result: 720
+
+int u ;
+void f(int m, int n){
+    int x ;
+	if (m>n) { u = m+n ;}
+	else {  x = 1 ; f(m+1,n+1) ; }
+}
+f(5,4) ; u
+Result: 9
+
+
+int u ;
+void f(int m, int n){
+    int x ;
+	if (m>n) { u = m+n ;}
+	else {  x = 1 ; f(m+1,n+1) ; }
+}
+f(4,5) ; u
+Result: LOOP
+

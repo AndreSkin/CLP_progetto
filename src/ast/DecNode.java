@@ -19,7 +19,6 @@ public class DecNode implements Node {
         if (e.getSymbolTable().topLookup(id) != null)
             errors.add(new SemanticError("Variabile " + id + " già dichiarata nel blocco corrente."));
         else {
-            //System.out.println("ID: "+id+"; OFFSET: "+e.getOffset());
 
             e.getSymbolTable().insert(id, type, e.getOffset()) ;
             e.incrementOffset();
@@ -32,8 +31,6 @@ public class DecNode implements Node {
     }
 
     public String codeGeneration(Environment e) {
-        /*return exp.codeGeneration() +
-                "pushr A0 \n" ;*/
         return "subi SP 1 \n";
     }
 

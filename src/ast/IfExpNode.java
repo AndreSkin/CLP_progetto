@@ -31,14 +31,10 @@ public class IfExpNode implements Node{
 
         Environment tmp = new Environment(e);
 
-        //System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
-
         for(Node n: innerThenStatements){
             result.addAll(n.checkSemantics(e));
         }
         result.addAll(innerThenExp.checkSemantics(e));
-
-        //System.out.println(tmp.getSymbolTable().lookup("b").getStatus());
 
         if(innerElseStatements != null) {
             for (Node n : innerElseStatements) {
@@ -76,13 +72,12 @@ public class IfExpNode implements Node{
                 for(String elem: tmp1.keySet()) {
                     if((tmp1.get(elem).getStatus() == Status.INITIALIZED && tmp2.get(elem).getStatus() == Status.DECLARED) || (tmp1.get(elem).getStatus() == Status.DECLARED && tmp2.get(elem).getStatus() == Status.INITIALIZED)) {
                         //System.out.println("Warning: Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
-                        throw new SimpLanCustomError("Incompatibilità di assegnamenti nel ramo then e nel ramo false per la variabile "+tmp1.get(elem).getLabel());
+                        throw new SimpLanCustomError("Incompatibilità di assegnamenti nel ramo then e nel ramo else per la variabile "+tmp1.get(elem).getLabel());
                         //e.getSymbolTable().get(i).get(elem).setDeclared();
                     }
                 }
             }
         } else {
-            //Restore a come era prima, non posso sapere
             e=tmp;
         }
         return thenTypeNode;
