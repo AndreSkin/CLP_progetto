@@ -18,11 +18,52 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-    	
+
+        String inputPath = "./src/input.txt";
+        boolean log = false;
+        boolean skipType = false;
+
+        int i = 0;
+        try {
+            while (args.length - i > 0)
+            {
+                String command = args[i];
+                switch (command)
+                {
+                    case "-h":
+                        case "-help":
+                            System.out.println("java -jar CLP_progetto.jar [path_to_input_file] [-h|-log|-skiptypecheck]");
+                            System.exit(0);
+                    case "-log":
+                    case "-l":
+                            log = true;
+                            System.out.println("Log abilitato.");
+                            break;
+                    case "-skiptypecheck":
+                    case "-s":
+                            skipType = true;
+                            System.out.println("Ignoro Type Checking.");
+                            break;
+                    default:
+                        if (inputPath.equals("./src/input.txt")) {
+                            System.out.println("Input File modificato: "+command);
+                            inputPath = command;
+                        } else throw new Error2("Paremetro sconosciuto");
+                }
+                i++;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Usage: java -jar CLP_progetto.jar [path_to_input_file] [-h|-log|-skiptypecheck]");
+            throw new Error2("Errore nei parametri.");
+        }
+
+
+
     	//Exercise 1
     	
-        String input = new String(Files.readAllBytes(Paths.get("./src/input.txt")));
-        //System.out.println(input);
+        String input = new String(Files.readAllBytes(Paths.get(inputPath)));
         CharStream stream = CharStreams.fromString(input);
         SimpLanPlusLexer lexer = new SimpLanPlusLexer(stream);
 
@@ -39,7 +80,7 @@ public class Main {
 
         parser = new SimpLanPlusParser(tokens);
 
-        Visitor visitor = new Visitor(false);
+        Visitor visitor = new Visitor(log);
 
         Node ast = visitor.visit(parser.prog());
 
@@ -69,23 +110,23 @@ public class Main {
             }
             System.out.println("Analisi Semantica completata con successo.");
 
-            boolean isCgen =  false;
 
-            if(!isCgen) {
+            if(!skipType) {
                 System.out.println("Inizio Type Checking");
                 ast.typeCheck(env);
                 System.out.println("Type Checking completato con successo.");
             }
 
-        //Codice per debug Offset
-        /*SymbolTable st = env.getSymbolTable();
-        for(int i=0; i<st.getSize();i++) {
-            System.out.println("Livello "+i);
-            for(String k: st.get(i).keySet()){
-                System.out.println(k+": "+st.get(i).get(k).getOffset());
-            }
-            System.out.println("-----");
-        }*/
+
+            //Codice per debug Offset
+            /*SymbolTable st = env.getSymbolTable();
+            for(int i=0; i<st.getSize();i++) {
+                System.out.println("Livello "+i);
+                for(String k: st.get(i).keySet()){
+                    System.out.println(k+": "+st.get(i).get(k).getOffset());
+                }
+                System.out.println("-----");
+            }*/
             System.out.println("Inizio Generazione di codice intermedio.");
             String code = ast.codeGeneration(env);
 
@@ -109,34 +150,16 @@ public class Main {
             CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
             SVMParser parserASM = new SVMParser(tokensASM);
 
-            //parserASM.assembly();
-
             SVMVisitorImpl visitorSVM = new SVMVisitorImpl();
             visitorSVM.visit(parserASM.assembly());
-
-            //System.out.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.");
-            //if (lexerASM.lexicalErrors>0 || parserASM.getNumberOfSyntaxErrors()>0) System.exit(1);
 
             System.out.println("Starting Virtual Machine...");
             ExecuteVM vm = new ExecuteVM(visitorSVM.code);
             vm.cpu();
-
-
-            /*int memsize = 100000;
-            ArrayList<Integer> breakpoints = new ArrayList<Integer>();
-            Interpreter interpreter = new Interpreter("out/code.asm");
-            interpreter.runVM();
-*/
-
-        } catch (RecognitionException e) {
-            // TODO: 6/8/23 Sistema RecognitionException
+        } catch (Exception e) {
             throw new Error2(e.getMessage());
         }
-
-
     }
-
-
 }
 
 

@@ -7,7 +7,7 @@ import java.util.Hashtable;
 public class ExecuteVM {
     
     public static final int CODESIZE = 1000 ;
-    public static final int MEMSIZE = 10000 ; //10000;
+    public static final int MEMSIZE =  1000 ; //10000;
  
     private AssemblyClass[] code;
     private int[] memory = new int[MEMSIZE];
