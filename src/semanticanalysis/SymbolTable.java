@@ -2,7 +2,6 @@ package semanticanalysis;
 
 import ast.TypeNode;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Stack;
 

@@ -1,9 +1,11 @@
 package ast;
 
 import others.SimpLanlib;
-import semanticanalysis.*;
+import semanticanalysis.Environment;
+import semanticanalysis.Error2;
+import semanticanalysis.SemanticError;
+import semanticanalysis.SymbolTable;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DecFunNode implements Node{

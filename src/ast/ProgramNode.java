@@ -3,7 +3,6 @@ package ast;
 import others.SimpLanlib;
 import semanticanalysis.Environment;
 import semanticanalysis.SemanticError;
-import semanticanalysis.SymbolTable;
 
 import java.util.ArrayList;
 

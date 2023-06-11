@@ -1,3 +1,5 @@
+import SVMPkg.SVMLexer;
+import SVMPkg.SVMParser;
 import ast.Node;
 import interpreter.ExecuteVM;
 import org.antlr.v4.runtime.*;
@@ -5,17 +7,13 @@ import semanticanalysis.Environment;
 import semanticanalysis.Error2;
 import semanticanalysis.SemanticError;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-
-import SVMPkg.*;
-import semanticanalysis.SymbolTable;
 
 public class Main {
 
@@ -23,7 +21,7 @@ public class Main {
     	
     	//Exercise 1
     	
-        String input = new String(Files.readAllBytes(Paths.get("src/input.txt")));
+        String input = new String(Files.readAllBytes(Paths.get("./src/input.txt")));
         //System.out.println(input);
         CharStream stream = CharStreams.fromString(input);
         SimpLanPlusLexer lexer = new SimpLanPlusLexer(stream);
@@ -46,7 +44,7 @@ public class Main {
         Node ast = visitor.visit(parser.prog());
 
             if (!handler.errors.isEmpty()) {
-                File f = new File("out/errors.txt");
+                File f = new File("./out/errors.txt");
                 if (!f.exists()) {
                     f.createNewFile();
                 } else {
@@ -54,7 +52,7 @@ public class Main {
                     f.createNewFile();
                 }
                 for (String s : handler.errors) {
-                    Files.write(Paths.get("out/errors.txt"), s.getBytes(), StandardOpenOption.APPEND);
+                    Files.write(Paths.get("./out/errors.txt"), s.getBytes(), StandardOpenOption.APPEND);
                 }
                 throw new Error2("Errori sintattici rilevati. Visualizzare l'output nel file ./out/errors.txt");
             }
@@ -91,7 +89,7 @@ public class Main {
             System.out.println("Inizio Generazione di codice intermedio.");
             String code = ast.codeGeneration(env);
 
-            File f = new File("out/code.asm");
+            File f = new File("./out/code.asm");
             if (!f.exists()) {
                 f.createNewFile();
             } else {
@@ -99,12 +97,12 @@ public class Main {
                 f.createNewFile();
             }
 
-            Files.write(Paths.get("out/code.asm"), code.getBytes(), StandardOpenOption.WRITE);
+            Files.write(Paths.get("./out/code.asm"), code.getBytes(), StandardOpenOption.WRITE);
 
             System.out.println("Codice generato con successo. Output nel file /out/code.asm");
 
 
-            String fileName = "out/code";
+            String fileName = "./out/code";
             FileInputStream isASM = new FileInputStream(fileName+".asm");
             ANTLRInputStream inputASM = new ANTLRInputStream(isASM);
             SVMLexer lexerASM = new SVMLexer(inputASM);

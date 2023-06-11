@@ -1,8 +1,6 @@
 import ast.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.SimpleTimeZone;
 
 public class Visitor extends SimpLanPlusBaseVisitor<Node>{
     boolean log;

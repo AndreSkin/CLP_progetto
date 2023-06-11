@@ -1,6 +1,6 @@
 package interpreter;
 
-import SVMPkg.*;
+import SVMPkg.SVMParser;
 
 import java.util.Hashtable;
 

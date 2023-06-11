@@ -1,10 +1,9 @@
 package ast;
 
-import java.util.ArrayList;
-
 import semanticanalysis.Environment;
 import semanticanalysis.SemanticError;
-import semanticanalysis.SymbolTable;
+
+import java.util.ArrayList;
 
 public class DecNode implements Node {
     private String id;
